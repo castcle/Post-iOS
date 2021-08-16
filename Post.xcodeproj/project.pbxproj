@@ -8,8 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		B7C2522F26C812A800ACBB84 /* Post.h in Headers */ = {isa = PBXBuildFile; fileRef = B7C2522D26C812A800ACBB84 /* Post.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; };
+		B7C2523F26C818B900ACBB84 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2524226C8402200ACBB84 /* CastKeyboardInput.swift */; };
+		B7C2524526C8402D00ACBB84 /* CastKeyboardInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2524426C8402D00ACBB84 /* CastKeyboardInput.xib */; };
+		B7C2524726C8408800ACBB84 /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7C2524626C8408800ACBB84 /* Post.storyboard */; };
+		B7C2524926C840A200ACBB84 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2524826C840A200ACBB84 /* PostViewController.swift */; };
+		B7C2524F26C84C8500ACBB84 /* PostNibVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2524E26C84C8500ACBB84 /* PostNibVars.swift */; };
+		B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2525026C84CAD00ACBB84 /* PostOpener.swift */; };
+		B7C2525A26CA28FF00ACBB84 /* PostTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */; };
+		B7C2525B26CA28FF00ACBB84 /* PostTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */; };
+		B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */; };
+		B7C2525F26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */; };
+		B7C2526126CA5E7100ACBB84 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */; };
 		C8652E2209B87A36BB49A921 /* Pods_Post.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B7C2524026C818B900ACBB84 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B7C2523F26C818B900ACBB84 /* Core.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04C7E3D514892CDCA8F80DCB /* Pods-Post.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.debug (production).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.debug (production).xcconfig"; sourceTree = "<group>"; };
@@ -21,6 +48,18 @@
 		B7C2522A26C812A800ACBB84 /* Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C2522D26C812A800ACBB84 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		B7C2522E26C812A800ACBB84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7C2523D26C818B900ACBB84 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7C2524226C8402200ACBB84 /* CastKeyboardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastKeyboardInput.swift; sourceTree = "<group>"; };
+		B7C2524426C8402D00ACBB84 /* CastKeyboardInput.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CastKeyboardInput.xib; sourceTree = "<group>"; };
+		B7C2524626C8408800ACBB84 /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
+		B7C2524826C840A200ACBB84 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		B7C2524E26C84C8500ACBB84 /* PostNibVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNibVars.swift; sourceTree = "<group>"; };
+		B7C2525026C84CAD00ACBB84 /* PostOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOpener.swift; sourceTree = "<group>"; };
+		B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTextTableViewCell.swift; sourceTree = "<group>"; };
+		B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTextTableViewCell.xib; sourceTree = "<group>"; };
+		B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPostTableViewCell.swift; sourceTree = "<group>"; };
+		B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderPostTableViewCell.xib; sourceTree = "<group>"; };
+		B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		F202663F4CD3F7E00D063926 /* Pods-Post.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.debug (staging).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.debug (staging).xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -30,6 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8652E2209B87A36BB49A921 /* Pods_Post.framework in Frameworks */,
+				B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +93,7 @@
 		0FD860D4CBD6B5C1107821C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7C2523D26C818B900ACBB84 /* Core.framework */,
 				6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */,
 			);
 			name = Frameworks;
@@ -81,8 +122,35 @@
 			children = (
 				B7C2522D26C812A800ACBB84 /* Post.h */,
 				B7C2522E26C812A800ACBB84 /* Info.plist */,
+				B7C2524626C8408800ACBB84 /* Post.storyboard */,
+				B7C2524826C840A200ACBB84 /* PostViewController.swift */,
+				B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */,
+				B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */,
+				B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */,
+				B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */,
+				B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */,
+				B7C2524D26C84C7000ACBB84 /* Utilities */,
+				B7C2524126C83FEB00ACBB84 /* KeyboardInputView */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		B7C2524126C83FEB00ACBB84 /* KeyboardInputView */ = {
+			isa = PBXGroup;
+			children = (
+				B7C2524226C8402200ACBB84 /* CastKeyboardInput.swift */,
+				B7C2524426C8402D00ACBB84 /* CastKeyboardInput.xib */,
+			);
+			path = KeyboardInputView;
+			sourceTree = "<group>";
+		};
+		B7C2524D26C84C7000ACBB84 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B7C2524E26C84C8500ACBB84 /* PostNibVars.swift */,
+				B7C2525026C84CAD00ACBB84 /* PostOpener.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,6 +176,7 @@
 				B7C2522626C812A800ACBB84 /* Sources */,
 				B7C2522726C812A800ACBB84 /* Frameworks */,
 				B7C2522826C812A800ACBB84 /* Resources */,
+				B7C2524026C818B900ACBB84 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,6 +197,7 @@
 				TargetAttributes = {
 					B7C2522926C812A800ACBB84 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -154,6 +224,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C2524726C8408800ACBB84 /* Post.storyboard in Resources */,
+				B7C2524526C8402D00ACBB84 /* CastKeyboardInput.xib in Resources */,
+				B7C2525F26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib in Resources */,
+				B7C2525B26CA28FF00ACBB84 /* PostTextTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +263,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C2524926C840A200ACBB84 /* PostViewController.swift in Sources */,
+				B7C2526126CA5E7100ACBB84 /* PostViewModel.swift in Sources */,
+				B7C2525A26CA28FF00ACBB84 /* PostTextTableViewCell.swift in Sources */,
+				B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */,
+				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,
+				B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */,
+				B7C2524F26C84C8500ACBB84 /* PostNibVars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04C7E3D514892CDCA8F80DCB /* Pods-Post.debug (production).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -338,6 +420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.castcle.Post;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -347,6 +430,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 59BD8A1899B67DA3615DAAAD /* Pods-Post.release (production).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -436,6 +520,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F202663F4CD3F7E00D063926 /* Pods-Post.debug (staging).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -451,6 +536,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.castcle.Post;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,6 +611,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 079DACC0FB51A9D951B05483 /* Pods-Post.debug (development).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -540,6 +627,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.castcle.Post;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -608,6 +696,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2099F79CFAD8DDE5338684E3 /* Pods-Post.release (staging).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -691,6 +780,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 289D7CBE1FD86DF81CCA5667 /* Pods-Post.release (development).xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
