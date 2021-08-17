@@ -93,6 +93,13 @@ class PostViewController: UIViewController {
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.newPost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.newPost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.imagePost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.imagePost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteText, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteText)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteTextLink, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteTextLink)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX1Cell, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX1Cell)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX2Cell, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX2Cell)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX3Cell, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX3Cell)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageXMoreCell, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageXMoreCell)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteBlogCel, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteBlogCel)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteBlogNoImageCell, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteBlogNoImageCell)
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100
@@ -200,7 +207,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.backgroundColor = UIColor.clear
             cell?.delegate = self
             cell?.postView.inputAccessoryView = self.castKeyboardInput
-            cell?.postView.becomeFirstResponder()
             return cell ?? PostTextTableViewCell()
         case PostViewControllerSection.image.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.imagePost, for: indexPath as IndexPath) as? ImagePostTableViewCell
@@ -215,6 +221,41 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.backgroundColor = UIColor.clear
                 cell?.feed = feed
                 return cell ?? QuoteCastTextCell()
+            } else if feed.feedPayload.feedDisplayType == .postLink || feed.feedPayload.feedDisplayType == .postYoutube {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteTextLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastTextLinkCell()
+            } else if feed.feedPayload.feedDisplayType == .postImageX1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX1Cell, for: indexPath as IndexPath) as? QuoteCastImageX1Cell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastImageX1Cell()
+            } else if feed.feedPayload.feedDisplayType == .postImageX2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX2Cell, for: indexPath as IndexPath) as? QuoteCastImageX2Cell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastImageX2Cell()
+            } else if feed.feedPayload.feedDisplayType == .postImageX3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX3Cell, for: indexPath as IndexPath) as? QuoteCastImageX3Cell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastImageX3Cell()
+            } else if feed.feedPayload.feedDisplayType == .postImageXMore {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageXMoreCell, for: indexPath as IndexPath) as? QuoteCastImageXMoreCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastImageXMoreCell()
+            } else if feed.feedPayload.feedDisplayType == .blogImage {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlogCel, for: indexPath as IndexPath) as? QuoteCastBlogCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastBlogCell()
+            } else if feed.feedPayload.feedDisplayType == .blogNoImage {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlogNoImageCell, for: indexPath as IndexPath) as? QuoteCastBlogNoImageCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastBlogNoImageCell()
             } else {
                 return UITableViewCell()
             }
