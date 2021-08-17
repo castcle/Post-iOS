@@ -21,6 +21,8 @@
 		B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */; };
 		B7C2525F26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */; };
 		B7C2526126CA5E7100ACBB84 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */; };
+		B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */; };
+		B7C2526526CAC1D600ACBB84 /* ImagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */; };
 		C8652E2209B87A36BB49A921 /* Pods_Post.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPostTableViewCell.swift; sourceTree = "<group>"; };
 		B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderPostTableViewCell.xib; sourceTree = "<group>"; };
 		B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePostTableViewCell.swift; sourceTree = "<group>"; };
+		B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePostTableViewCell.xib; sourceTree = "<group>"; };
 		F202663F4CD3F7E00D063926 /* Pods-Post.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.debug (staging).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.debug (staging).xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +133,8 @@
 				B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */,
 				B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */,
 				B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */,
+				B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */,
+				B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */,
 				B7C2524D26C84C7000ACBB84 /* Utilities */,
 				B7C2524126C83FEB00ACBB84 /* KeyboardInputView */,
 			);
@@ -226,6 +232,7 @@
 			files = (
 				B7C2524726C8408800ACBB84 /* Post.storyboard in Resources */,
 				B7C2524526C8402D00ACBB84 /* CastKeyboardInput.xib in Resources */,
+				B7C2526526CAC1D600ACBB84 /* ImagePostTableViewCell.xib in Resources */,
 				B7C2525F26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib in Resources */,
 				B7C2525B26CA28FF00ACBB84 /* PostTextTableViewCell.xib in Resources */,
 			);
@@ -266,6 +273,7 @@
 				B7C2524926C840A200ACBB84 /* PostViewController.swift in Sources */,
 				B7C2526126CA5E7100ACBB84 /* PostViewModel.swift in Sources */,
 				B7C2525A26CA28FF00ACBB84 /* PostTextTableViewCell.swift in Sources */,
+				B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */,
 				B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */,
 				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,
 				B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */,

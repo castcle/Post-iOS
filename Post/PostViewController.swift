@@ -58,6 +58,7 @@ class PostViewController: UIViewController {
     enum PostViewControllerSection: Int, CaseIterable {
         case header = 0
         case newPost
+        case image
     }
     
     override func viewDidLoad() {
@@ -81,6 +82,7 @@ class PostViewController: UIViewController {
         
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.header, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.header)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.newPost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.newPost)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.imagePost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.imagePost)
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100
@@ -95,7 +97,7 @@ class PostViewController: UIViewController {
     }
     
     @objc func castAction() {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func selectPhotoAction() {
@@ -128,6 +130,7 @@ class PostViewController: UIViewController {
         configure.allowedVideoRecording = false
         configure.selectedColor = UIColor.Asset.lightBlue
         photosPickerViewController.configure = configure
+        photosPickerViewController.selectedAssets = self.viewModel.imageInsert
 
         Utility.currentViewController().present(photosPickerViewController, animated: true, completion: nil)
     }
@@ -179,6 +182,12 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.postView.inputAccessoryView = self.castKeyboardInput
             cell?.postView.becomeFirstResponder()
             return cell ?? PostTextTableViewCell()
+        case PostViewControllerSection.image.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.imagePost, for: indexPath as IndexPath) as? ImagePostTableViewCell
+            cell?.backgroundColor = UIColor.clear
+            cell?.delegate = self
+            cell?.configCell(image: self.viewModel.imageInsert)
+            return cell ?? ImagePostTableViewCell()
         default:
             return UITableViewCell()
         }
@@ -194,8 +203,8 @@ extension PostViewController: PostTextTableViewCellDelegate {
             self.tableView?.beginUpdates()
             self.tableView?.endUpdates()
             UIView.setAnimationsEnabled(true)
-            if let thisIndexPath = self.tableView.indexPath(for: cell) {
-                self.tableView.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
+            if let indexPath = self.tableView.indexPath(for: cell) {
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
         }
         
@@ -210,17 +219,28 @@ extension PostViewController: PostTextTableViewCellDelegate {
     }
 }
 
+extension PostViewController: ImagePostTableViewCellDelegate {
+    func imagePostTableViewCell(_ cell: ImagePostTableViewCell, didRemoveAt index: Int) {
+        if self.viewModel.imageInsert.count > index {
+            self.viewModel.imageInsert.remove(at: index)
+            let index = IndexPath(row: 0, section: 2)
+            self.tableView.reloadRows(at: [index], with: .automatic)
+        }
+    }
+}
+
 extension PostViewController: TLPhotosPickerViewControllerDelegate {
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
         self.viewModel.imageInsert = withTLPHAssets
         self.updateImageToolBarButton()
-//        if let asset = withTLPHAssets.first {
-//            if let image = asset.fullResolutionImage {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                    self.presentCropViewController(image: image)
-//                }
-//            }
-//        }
+        
+        if self.viewModel.imageInsert.count > 0 {
+            self.updateCastToolBarButton(isHaveText: true)
+            self.viewModel.isCanPost = true
+        }
+        
+        let index = IndexPath(row: 0, section: 2)
+        self.tableView.reloadRows(at: [index], with: .automatic)
         return true
     }
 }
