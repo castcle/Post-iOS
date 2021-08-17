@@ -79,43 +79,43 @@ class ImagePostTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.containerView.custom(cornerRadius: 12)
-        self.button11.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button11.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button11.setImage(self.multiplyImage, for: .normal)
         self.button11.tintColor = UIColor.Asset.white
         self.button11.capsule()
-        self.button21.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button21.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button21.setImage(self.multiplyImage, for: .normal)
         self.button21.tintColor = UIColor.Asset.white
         self.button21.capsule()
-        self.button22.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button22.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button22.setImage(self.multiplyImage, for: .normal)
         self.button22.tintColor = UIColor.Asset.white
         self.button22.capsule()
-        self.button31.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button31.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button31.setImage(self.multiplyImage, for: .normal)
         self.button31.tintColor = UIColor.Asset.white
         self.button31.capsule()
-        self.button32.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button32.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button32.setImage(self.multiplyImage, for: .normal)
         self.button32.tintColor = UIColor.Asset.white
         self.button32.capsule()
-        self.button33.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button33.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button33.setImage(self.multiplyImage, for: .normal)
         self.button33.tintColor = UIColor.Asset.white
         self.button33.capsule()
-        self.button41.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button41.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button41.setImage(self.multiplyImage, for: .normal)
         self.button41.tintColor = UIColor.Asset.white
         self.button41.capsule()
-        self.button42.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button42.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button42.setImage(self.multiplyImage, for: .normal)
         self.button42.tintColor = UIColor.Asset.white
         self.button42.capsule()
-        self.button43.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button43.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button43.setImage(self.multiplyImage, for: .normal)
         self.button43.tintColor = UIColor.Asset.white
         self.button43.capsule()
-        self.button44.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.5), for: .normal)
+        self.button44.setBackgroundImage(UIColor.Asset.gray.toImage()?.alpha(0.4), for: .normal)
         self.button44.setImage(self.multiplyImage, for: .normal)
         self.button44.tintColor = UIColor.Asset.white
         self.button44.capsule()
@@ -220,5 +220,4 @@ class ImagePostTableViewCell: UITableViewCell {
     @IBAction func action44(_ sender: Any) {
         self.delegate?.imagePostTableViewCell(self, didRemoveAt: 3)
     }
-    
 }

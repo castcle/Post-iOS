@@ -27,6 +27,7 @@
 
 import UIKit
 import Core
+import Networking
 import SwiftColor
 import TLPhotoPicker
 
@@ -59,11 +60,13 @@ class PostViewController: UIViewController {
         case header = 0
         case newPost
         case image
+        case quote
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.titleLabel.text = self.viewModel.postType.rawValue
         self.view.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.titleView.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.backButton.setImage(UIImage.init(icon: .castcle(.back), size: CGSize(width: 23, height: 23), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
@@ -72,6 +75,12 @@ class PostViewController: UIViewController {
         self.blogSwitch.onTintColor = UIColor.Asset.gray
         self.blogSwitch.thumbTintColor = UIColor.Asset.white
         self.blogSwitch.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+        
+        if self.viewModel.postType == .newCast {
+            self.castKeyboardInput.imageButton.isHidden = false
+        } else {
+            self.castKeyboardInput.imageButton.isHidden = true
+        }
         
         self.configureTableView()
     }
@@ -83,6 +92,7 @@ class PostViewController: UIViewController {
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.header, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.header)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.newPost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.newPost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.imagePost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.imagePost)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteText, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteText)
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100
@@ -97,7 +107,9 @@ class PostViewController: UIViewController {
     }
     
     @objc func castAction() {
-        self.dismiss(animated: true, completion: nil)
+        if self.viewModel.isCanPost() {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func selectPhotoAction() {
@@ -135,8 +147,8 @@ class PostViewController: UIViewController {
         Utility.currentViewController().present(photosPickerViewController, animated: true, completion: nil)
     }
 
-    private func updateCastToolBarButton(isHaveText: Bool) {
-        if isHaveText {
+    private func updateCastToolBarButton() {
+        if self.viewModel.isHaveText || self.viewModel.imageInsert.count > 0 {
             self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
             self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
             self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
@@ -166,7 +178,15 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case PostViewControllerSection.image.rawValue:
+            return (self.viewModel.postType == .newCast ? 1 : 0)
+        case PostViewControllerSection.quote.rawValue:
+            return (self.viewModel.postType == .quoteCast ? 1 : 0)
+        default:
+            return 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -188,6 +208,16 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.delegate = self
             cell?.configCell(image: self.viewModel.imageInsert)
             return cell ?? ImagePostTableViewCell()
+        case PostViewControllerSection.quote.rawValue:
+            guard let feed = self.viewModel.feed else { return UITableViewCell() }
+            if feed.feedPayload.feedDisplayType == .postText {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteText, for: indexPath as IndexPath) as? QuoteCastTextCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.feed = feed
+                return cell ?? QuoteCastTextCell()
+            } else {
+                return UITableViewCell()
+            }
         default:
             return UITableViewCell()
         }
@@ -210,11 +240,11 @@ extension PostViewController: PostTextTableViewCellDelegate {
         
         let characterCount = textView.text.count
         if characterCount == 0 || characterCount > self.viewModel.limitCharacter {
-            self.updateCastToolBarButton(isHaveText: false)
-            self.viewModel.isCanPost = false
+            self.viewModel.isHaveText = false
+            self.updateCastToolBarButton()
         } else {
-            self.updateCastToolBarButton(isHaveText: true)
-            self.viewModel.isCanPost = true
+            self.viewModel.isHaveText = true
+            self.updateCastToolBarButton()
         }
     }
 }
@@ -225,6 +255,8 @@ extension PostViewController: ImagePostTableViewCellDelegate {
             self.viewModel.imageInsert.remove(at: index)
             let index = IndexPath(row: 0, section: 2)
             self.tableView.reloadRows(at: [index], with: .automatic)
+            self.updateImageToolBarButton()
+            self.updateCastToolBarButton()
         }
     }
 }
@@ -233,11 +265,7 @@ extension PostViewController: TLPhotosPickerViewControllerDelegate {
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
         self.viewModel.imageInsert = withTLPHAssets
         self.updateImageToolBarButton()
-        
-        if self.viewModel.imageInsert.count > 0 {
-            self.updateCastToolBarButton(isHaveText: true)
-            self.viewModel.isCanPost = true
-        }
+        self.updateCastToolBarButton()
         
         let index = IndexPath(row: 0, section: 2)
         self.tableView.reloadRows(at: [index], with: .automatic)

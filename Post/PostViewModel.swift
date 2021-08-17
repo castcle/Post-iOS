@@ -26,12 +26,32 @@
 //
 
 import Foundation
+import Networking
 import TLPhotoPicker
 
-final class PostViewModel {
+public enum PostType: String {
+    case newCast = "New Cast"
+    case quoteCast = "Quote Cast"
+}
+
+public final class PostViewModel {
     
     var limitCharacter: Int = 10
-    var isCanPost: Bool = false
+    var isHaveText: Bool = false
     var imageInsert: [TLPHAsset] = []
+    var postType: PostType = .newCast
+    var feed: Feed?
     
+    public init(postType: PostType = .newCast, feed: Feed? = nil) {
+        self.postType = postType
+        self.feed = feed
+    }
+    
+    func isCanPost() -> Bool {
+        if self.isHaveText || self.imageInsert.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }

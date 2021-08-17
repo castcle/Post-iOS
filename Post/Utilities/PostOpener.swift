@@ -29,16 +29,17 @@ import UIKit
 import Core
 
 public enum PostScene {
-    case post
+    case post(PostViewModel)
 }
 
 public struct PostOpener {
     public static func open(_ postScene: PostScene) -> UIViewController {
         switch postScene {
-        case .post:
+        case .post(let viewModel):
             let storyboard: UIStoryboard = UIStoryboard(name: PostNibVars.Storyboard.post, bundle: ConfigBundle.post)
-            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post)
-            return vc
+            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post) as? PostViewController
+            vc?.viewModel = viewModel
+            return vc ?? PostViewController()
         }
     }
 }

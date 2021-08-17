@@ -41,6 +41,7 @@ public struct PostNibVars {
         public static let header = "HeaderPostTableViewCell"
         public static let newPost = "PostTextTableViewCell"
         public static let imagePost = "ImagePostTableViewCell"
+        public static let quoteText = "QuoteCastTextCell"
     }
     
     // MARK: - CollectionViewCell
