@@ -38,7 +38,7 @@ public enum PostType: String {
 public final class PostViewModel {
     
     var limitCharacter: Int = 10
-    var isHaveText: Bool = false
+    var postText: String = ""
     var imageInsert: [TLPHAsset] = []
     var postType: PostType = .newCast
     var feed: Feed?
@@ -51,10 +51,18 @@ public final class PostViewModel {
     }
     
     func isCanPost() -> Bool {
-        if self.isHaveText || self.imageInsert.count > 0 {
-            return true
+        if !self.postText.isEmpty {
+            if self.postText.count <= self.limitCharacter {
+                return true
+            } else {
+                return false
+            }
         } else {
-            return false
+            if self.imageInsert.count > 0 {
+                return true
+            } else {
+                return false
+            }
         }
     }
 }

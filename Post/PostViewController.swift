@@ -39,11 +39,25 @@ class PostViewController: UIViewController {
     @IBOutlet var blogSwitch: UISwitch!
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var keyBoardView: UIView!
+    @IBOutlet var toolbarView: UIView!
     
     var viewModel = PostViewModel()
     
     private lazy var castKeyboardInput: CastKeyboardInput = {
+        let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
+        inputView.castButton.setTitle("Cast", for: .normal)
+        inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
+        inputView.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
+        inputView.castButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .body)
+        inputView.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
+        inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
+        inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
+        inputView.imageButton.addTarget(self, action: #selector(self.selectPhotoAction), for: .touchUpInside)
+        
+        return inputView
+    }()
+    
+    private lazy var toolbarKeyboardInput: CastKeyboardInput = {
         let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
         inputView.castButton.setTitle("Cast", for: .normal)
         inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
@@ -79,11 +93,34 @@ class PostViewController: UIViewController {
         
         if self.viewModel.postType == .newCast {
             self.castKeyboardInput.imageButton.isHidden = false
+            self.toolbarKeyboardInput.imageButton.isHidden = false
         } else {
             self.castKeyboardInput.imageButton.isHidden = true
+            self.toolbarKeyboardInput.imageButton.isHidden = true
         }
         
         self.configureTableView()
+        self.toolbarView.addSubview(self.toolbarKeyboardInput)
+        self.updateCastToolBarButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillAppear() {
+        self.toolbarView.isHidden = true
+    }
+
+    @objc func keyboardWillDisappear() {
+        self.toolbarView.isHidden = false
     }
     
     func configureTableView() {
@@ -156,23 +193,60 @@ class PostViewController: UIViewController {
     }
 
     private func updateCastToolBarButton() {
-        if self.viewModel.isHaveText || self.viewModel.imageInsert.count > 0 {
-            self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
-            self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
-            self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
+        if !self.viewModel.postText.isEmpty {
+            let characterCount = self.viewModel.postText.count
+            if characterCount <= self.viewModel.limitCharacter {
+                self.enableCaseButtom()
+            } else {
+                self.disableCaseButtom()
+            }
         } else {
-            self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
-            self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
-            self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
+            if self.viewModel.imageInsert.count > 0 {
+                self.enableCaseButtom()
+            } else {
+                self.disableCaseButtom()
+            }
         }
+    }
+    
+    private func disableCaseButtom() {
+        self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
+        self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
+        self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
+        
+        self.toolbarKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
+        self.toolbarKeyboardInput.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
+        self.toolbarKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
+    }
+    
+    private func enableCaseButtom() {
+        self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
+        self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
+        self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
+        
+        self.toolbarKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
+        self.toolbarKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
+        self.toolbarKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
     }
     
     private func updateImageToolBarButton() {
         if self.viewModel.imageInsert.isEmpty {
-            self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
+            self.disableImageButtom()
         } else {
-            self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.lightBlue).withRenderingMode(.alwaysOriginal), for: .normal)
+            self.enableImageButtom()
         }
+    }
+    
+    private func disableImageButtom() {
+        self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        self.toolbarKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
+    }
+    
+    private func enableImageButtom() {
+        self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.lightBlue).withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        self.toolbarKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.lightBlue).withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -280,14 +354,8 @@ extension PostViewController: PostTextTableViewCellDelegate {
             }
         }
         
-        let characterCount = textView.text.count
-        if characterCount == 0 || characterCount > self.viewModel.limitCharacter {
-            self.viewModel.isHaveText = false
-            self.updateCastToolBarButton()
-        } else {
-            self.viewModel.isHaveText = true
-            self.updateCastToolBarButton()
-        }
+        self.viewModel.postText = textView.text
+        self.updateCastToolBarButton()
     }
 }
 
