@@ -39,6 +39,7 @@ class PostViewController: UIViewController {
     @IBOutlet var blogSwitch: UISwitch!
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var keyBoardView: UIView!
     
     var viewModel = PostViewModel()
     
@@ -193,7 +194,6 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             return 1
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,6 +201,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         case PostViewControllerSection.header.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.header, for: indexPath as IndexPath) as? HeaderPostTableViewCell
             cell?.backgroundColor = UIColor.clear
+            cell?.configCell(page: self.viewModel.page)
             return cell ?? HeaderPostTableViewCell()
         case PostViewControllerSection.newPost.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.newPost, for: indexPath as IndexPath) as? PostTextTableViewCell

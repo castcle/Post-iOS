@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Core
 import Networking
 import TLPhotoPicker
 
@@ -41,10 +42,12 @@ public final class PostViewModel {
     var imageInsert: [TLPHAsset] = []
     var postType: PostType = .newCast
     var feed: Feed?
+    var page: Page?
     
-    public init(postType: PostType = .newCast, feed: Feed? = nil) {
+    public init(postType: PostType = .newCast, feed: Feed? = nil, page: Page = Page(name: UserState.shared.name, avatar: UserState.shared.avatar)) {
         self.postType = postType
         self.feed = feed
+        self.page = page
     }
     
     func isCanPost() -> Bool {

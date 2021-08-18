@@ -54,8 +54,6 @@ class PostTextTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func resolveSymbol(text : String) -> NSAttributedString {
@@ -95,7 +93,6 @@ class PostTextTableViewCell: UITableViewCell {
 
 extension PostTextTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        
         if !textView.text.isEmpty {
             textView.attributedText = resolveSymbol(text: textView.text)
         }

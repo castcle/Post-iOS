@@ -41,9 +41,7 @@ class HeaderPostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let url = URL(string: UserState.shared.avatar)
-        self.avatarImage.kf.setImage(with: url)
-        self.displayNameLabel.text = UserState.shared.name
+        
         self.avatarImage.circle(color: UIColor.Asset.white)
         self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
@@ -56,8 +54,12 @@ class HeaderPostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    func configCell(page: Page?) {
+        guard let page = page else { return }
+        let url = URL(string: page.avatar)
+        self.avatarImage.kf.setImage(with: url)
+        self.displayNameLabel.text = page.name
+    }
 }

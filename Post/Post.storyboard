@@ -60,8 +60,8 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ivM-IM-gtg" secondAttribute="bottom" id="1vv-sK-yu1"/>
                             <constraint firstItem="d0p-ho-EK8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="6ls-ek-LYy"/>
-                            <constraint firstAttribute="bottom" secondItem="ivM-IM-gtg" secondAttribute="bottom" id="CID-8r-ZBu"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="d0p-ho-EK8" secondAttribute="trailing" id="Fnj-x3-1Ts"/>
                             <constraint firstItem="ivM-IM-gtg" firstAttribute="top" secondItem="d0p-ho-EK8" secondAttribute="bottom" id="KvT-PB-zNh"/>
                             <constraint firstItem="ivM-IM-gtg" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Xcx-YG-bly"/>
