@@ -37,7 +37,7 @@ public enum PostType: String {
 
 public final class PostViewModel {
     
-    var limitCharacter: Int = 10
+    var limitCharacter: Int = 280
     var postText: String = ""
     var imageInsert: [TLPHAsset] = []
     var postType: PostType = .newCast

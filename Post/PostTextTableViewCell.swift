@@ -41,7 +41,7 @@ class PostTextTableViewCell: UITableViewCell {
     
     var delegate: PostTextTableViewCellDelegate?
     
-    private var limitCharacter: Int = 10
+    private var limitCharacter: Int = 280
     let mentionDropDown = DropDown()
     let hastagDropDown = DropDown()
     var isShowDropDown: Bool = false
