@@ -41,6 +41,10 @@
 		B7C2529026CC15E300ACBB84 /* QuoteCastBlogNoImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2528C26CC15E300ACBB84 /* QuoteCastBlogNoImageCell.xib */; };
 		B7C2529126CC15E300ACBB84 /* QuoteCastBlogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2528D26CC15E300ACBB84 /* QuoteCastBlogCell.xib */; };
 		B7C2529226CC15E300ACBB84 /* QuoteCastBlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2528E26CC15E300ACBB84 /* QuoteCastBlogCell.swift */; };
+		B7C2529B26CE385800ACBB84 /* MentionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2529926CE385800ACBB84 /* MentionTableViewCell.swift */; };
+		B7C2529C26CE385800ACBB84 /* MentionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2529A26CE385800ACBB84 /* MentionTableViewCell.xib */; };
+		B7C2529F26CE3ED900ACBB84 /* HashtagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2529D26CE3ED900ACBB84 /* HashtagTableViewCell.swift */; };
+		B7C252A026CE3ED900ACBB84 /* HashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */; };
 		C8652E2209B87A36BB49A921 /* Pods_Post.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +104,10 @@
 		B7C2528C26CC15E300ACBB84 /* QuoteCastBlogNoImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteCastBlogNoImageCell.xib; sourceTree = "<group>"; };
 		B7C2528D26CC15E300ACBB84 /* QuoteCastBlogCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteCastBlogCell.xib; sourceTree = "<group>"; };
 		B7C2528E26CC15E300ACBB84 /* QuoteCastBlogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCastBlogCell.swift; sourceTree = "<group>"; };
+		B7C2529926CE385800ACBB84 /* MentionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionTableViewCell.swift; sourceTree = "<group>"; };
+		B7C2529A26CE385800ACBB84 /* MentionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MentionTableViewCell.xib; sourceTree = "<group>"; };
+		B7C2529D26CE3ED900ACBB84 /* HashtagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTableViewCell.swift; sourceTree = "<group>"; };
+		B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HashtagTableViewCell.xib; sourceTree = "<group>"; };
 		F202663F4CD3F7E00D063926 /* Pods-Post.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.debug (staging).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.debug (staging).xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +181,10 @@
 				B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */,
 				B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */,
 				B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */,
+				B7C2529926CE385800ACBB84 /* MentionTableViewCell.swift */,
+				B7C2529A26CE385800ACBB84 /* MentionTableViewCell.xib */,
+				B7C2529D26CE3ED900ACBB84 /* HashtagTableViewCell.swift */,
+				B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */,
 				B7C2526D26CBA7B700ACBB84 /* Cell */,
 				B7C2524D26C84C7000ACBB84 /* Utilities */,
 				B7C2524126C83FEB00ACBB84 /* KeyboardInputView */,
@@ -300,10 +312,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C252A026CE3ED900ACBB84 /* HashtagTableViewCell.xib in Resources */,
 				B7C2524726C8408800ACBB84 /* Post.storyboard in Resources */,
 				B7C2524526C8402D00ACBB84 /* CastKeyboardInput.xib in Resources */,
 				B7C2529126CC15E300ACBB84 /* QuoteCastBlogCell.xib in Resources */,
 				B7C2529026CC15E300ACBB84 /* QuoteCastBlogNoImageCell.xib in Resources */,
+				B7C2529C26CE385800ACBB84 /* MentionTableViewCell.xib in Resources */,
 				B7C2526526CAC1D600ACBB84 /* ImagePostTableViewCell.xib in Resources */,
 				B7C2528A26CC130E00ACBB84 /* QuoteCastImageX3Cell.xib in Resources */,
 				B7C2527A26CC018000ACBB84 /* QuoteCastTextLinkCell.xib in Resources */,
@@ -348,12 +362,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C2529F26CE3ED900ACBB84 /* HashtagTableViewCell.swift in Sources */,
 				B7C2524926C840A200ACBB84 /* PostViewController.swift in Sources */,
 				B7C2527D26CC07CA00ACBB84 /* QuoteCastImageX1Cell.swift in Sources */,
 				B7C2526126CA5E7100ACBB84 /* PostViewModel.swift in Sources */,
 				B7C2525A26CA28FF00ACBB84 /* PostTextTableViewCell.swift in Sources */,
 				B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */,
 				B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */,
+				B7C2529B26CE385800ACBB84 /* MentionTableViewCell.swift in Sources */,
 				B7C2527526CBA99600ACBB84 /* QuoteCastTextCell.swift in Sources */,
 				B7C2527926CC018000ACBB84 /* QuoteCastTextLinkCell.swift in Sources */,
 				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,

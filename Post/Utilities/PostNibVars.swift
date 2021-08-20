@@ -43,12 +43,14 @@ public struct PostNibVars {
         public static let imagePost = "ImagePostTableViewCell"
         public static let quoteText = "QuoteCastTextCell"
         public static let quoteTextLink = "QuoteCastTextLinkCell"
-        public static let quoteImageX1Cell = "QuoteCastImageX1Cell"
-        public static let quoteImageX2Cell = "QuoteCastImageX2Cell"
-        public static let quoteImageX3Cell = "QuoteCastImageX3Cell"
-        public static let quoteImageXMoreCell = "QuoteCastImageXMoreCell"
-        public static let quoteBlogCel = "QuoteCastBlogCell"
-        public static let quoteBlogNoImageCell = "QuoteCastBlogNoImageCell"
+        public static let quoteImageX1 = "QuoteCastImageX1Cell"
+        public static let quoteImageX2 = "QuoteCastImageX2Cell"
+        public static let quoteImageX3 = "QuoteCastImageX3Cell"
+        public static let quoteImageXMore = "QuoteCastImageXMoreCell"
+        public static let quoteBlog = "QuoteCastBlogCell"
+        public static let quoteBlogNoImage = "QuoteCastBlogNoImageCell"
+        public static let mentionCell = "MentionTableViewCell"
+        public static let hashtagCell = "HashtagTableViewCell"
     }
     
     // MARK: - CollectionViewCell
