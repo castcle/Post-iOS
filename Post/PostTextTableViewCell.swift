@@ -175,28 +175,15 @@ extension PostTextTableViewCell: UITextViewDelegate {
         self.checkCharacterCount()
     }
     
-    private func dispalyAttributedTextView(textView: UITextView) {
-        let str = textView.text
-                .styleMentions(mentions)
-                .styleHashtags(hastags)
-                .styleAll(all)
-                .attributedString
-        
-        textView.attributedText = str
-    }
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print(range)
-        print(text)
-        
         if text == "@" {
-            if self.isShowDropDown == false {
+            if !self.isShowDropDown {
                 self.isShowDropDown = true
                 self.setupMentionDropDown()
                 self.mentionDropDown.show()
             }
         } else if text == "#" {
-            if self.isShowDropDown == false {
+            if !self.isShowDropDown {
                 self.isShowDropDown = true
                 self.setupHastagDropDown()
                 self.hastagDropDown.show()
