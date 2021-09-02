@@ -19,33 +19,19 @@
 //  Thailand 10160, or visit www.castcle.com if you need additional information
 //  or have any questions.
 //
-//  PostOpener.swift
+//  CommentViewModel.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 15/8/2564 BE.
+//  Created by Tanakorn Phoochaliaw on 2/9/2564 BE.
 //
 
-import UIKit
-import Core
+import Networking
 
-public enum PostScene {
-    case post(PostViewModel)
-    case comment(CommentViewModel)
-}
-
-public struct PostOpener {
-    public static func open(_ postScene: PostScene) -> UIViewController {
-        switch postScene {
-        case .post(let viewModel):
-            let storyboard: UIStoryboard = UIStoryboard(name: PostNibVars.Storyboard.post, bundle: ConfigBundle.post)
-            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post) as? PostViewController
-            vc?.viewModel = viewModel
-            return vc ?? PostViewController()
-        case .comment(let viewModel):
-            let storyboard: UIStoryboard = UIStoryboard(name: PostNibVars.Storyboard.post, bundle: ConfigBundle.post)
-            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.comment) as? CommentViewController
-            vc?.viewModel = viewModel
-            return vc ?? CommentViewController()
-        }
+public final class CommentViewModel {
+    
+    var feed: Feed?
+    
+    public init(feed: Feed? = nil) {
+        self.feed = feed
     }
 }

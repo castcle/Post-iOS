@@ -86,6 +86,7 @@ class PostViewController: UIViewController {
         self.titleView.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.backButton.setImage(UIImage.init(icon: .castcle(.back), size: CGSize(width: 23, height: 23), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         self.titleLabel.font = UIFont.asset(.regular, fontSize: .h4)
+        self.titleLabel.textColor = UIColor.Asset.white
         self.blogSwitch.tintColor = UIColor.Asset.darkGray
         self.blogSwitch.onTintColor = UIColor.Asset.gray
         self.blogSwitch.thumbTintColor = UIColor.Asset.white

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7642C4A26E0A6E900CDCE95 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7642C4926E0A6E900CDCE95 /* CommentViewController.swift */; };
+		B7642C4C26E0A95B00CDCE95 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7642C4B26E0A95B00CDCE95 /* CommentViewModel.swift */; };
 		B7C2522F26C812A800ACBB84 /* Post.h in Headers */ = {isa = PBXBuildFile; fileRef = B7C2522D26C812A800ACBB84 /* Post.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; };
 		B7C2523F26C818B900ACBB84 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -70,6 +72,8 @@
 		289D7CBE1FD86DF81CCA5667 /* Pods-Post.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (development).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (development).xcconfig"; sourceTree = "<group>"; };
 		59BD8A1899B67DA3615DAAAD /* Pods-Post.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (production).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (production).xcconfig"; sourceTree = "<group>"; };
 		6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7642C4926E0A6E900CDCE95 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		B7642C4B26E0A95B00CDCE95 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		B7C2522A26C812A800ACBB84 /* Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C2522D26C812A800ACBB84 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		B7C2522E26C812A800ACBB84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,6 +153,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B7642C4626E07CDB00CDCE95 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */,
+				B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */,
+				B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */,
+				B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */,
+				B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */,
+				B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */,
+				B7C2529926CE385800ACBB84 /* MentionTableViewCell.swift */,
+				B7C2529A26CE385800ACBB84 /* MentionTableViewCell.xib */,
+				B7C2529D26CE3ED900ACBB84 /* HashtagTableViewCell.swift */,
+				B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		B7642C4726E0A5B400CDCE95 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B7642C4826E0A5BC00CDCE95 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7C2524826C840A200ACBB84 /* PostViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		B7C2522026C812A800ACBB84 = {
 			isa = PBXGroup;
 			children = (
@@ -173,18 +210,10 @@
 				B7C2522D26C812A800ACBB84 /* Post.h */,
 				B7C2522E26C812A800ACBB84 /* Info.plist */,
 				B7C2524626C8408800ACBB84 /* Post.storyboard */,
-				B7C2524826C840A200ACBB84 /* PostViewController.swift */,
-				B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */,
-				B7C2525C26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift */,
-				B7C2525D26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib */,
-				B7C2525826CA28FF00ACBB84 /* PostTextTableViewCell.swift */,
-				B7C2525926CA28FF00ACBB84 /* PostTextTableViewCell.xib */,
-				B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */,
-				B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */,
-				B7C2529926CE385800ACBB84 /* MentionTableViewCell.swift */,
-				B7C2529A26CE385800ACBB84 /* MentionTableViewCell.xib */,
-				B7C2529D26CE3ED900ACBB84 /* HashtagTableViewCell.swift */,
-				B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */,
+				B7642C4926E0A6E900CDCE95 /* CommentViewController.swift */,
+				B7642C4B26E0A95B00CDCE95 /* CommentViewModel.swift */,
+				B7642C4826E0A5BC00CDCE95 /* ViewController */,
+				B7642C4726E0A5B400CDCE95 /* ViewModel */,
 				B7C2526D26CBA7B700ACBB84 /* Cell */,
 				B7C2524D26C84C7000ACBB84 /* Utilities */,
 				B7C2524126C83FEB00ACBB84 /* KeyboardInputView */,
@@ -213,6 +242,7 @@
 		B7C2526D26CBA7B700ACBB84 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B7642C4626E07CDB00CDCE95 /* Post */,
 				B7C2526E26CBA7D400ACBB84 /* Quote Feed Type */,
 			);
 			path = Cell;
@@ -370,6 +400,7 @@
 				B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */,
 				B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */,
 				B7C2529B26CE385800ACBB84 /* MentionTableViewCell.swift in Sources */,
+				B7642C4C26E0A95B00CDCE95 /* CommentViewModel.swift in Sources */,
 				B7C2527526CBA99600ACBB84 /* QuoteCastTextCell.swift in Sources */,
 				B7C2527926CC018000ACBB84 /* QuoteCastTextLinkCell.swift in Sources */,
 				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,
@@ -380,6 +411,7 @@
 				B7C2528226CC0DB300ACBB84 /* QuoteCastImageXMoreCell.swift in Sources */,
 				B7C2528726CC130E00ACBB84 /* QuoteCastImageX3Cell.swift in Sources */,
 				B7C2529226CC15E300ACBB84 /* QuoteCastBlogCell.swift in Sources */,
+				B7642C4A26E0A6E900CDCE95 /* CommentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
