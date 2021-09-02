@@ -30,6 +30,7 @@ import LinkPresentation
 import Core
 import Networking
 import ActiveLabel
+import SwiftLinkPreview
 
 class QuoteCastTextLinkCell: UITableViewCell {
 
@@ -54,15 +55,20 @@ class QuoteCastTextLinkCell: UITableViewCell {
     }
     
     @IBOutlet var linkContainer: UIView!
+    @IBOutlet var titleLinkView: UIView!
+    @IBOutlet var linkImage: UIImageView!
+    @IBOutlet var linkTitleLabel: UILabel!
+    @IBOutlet var linkDescriptionLabel: UILabel!
     
-    private var linkView: LPLinkView = LPLinkView(metadata: LPLinkMetadata())
+    private var result = Response()
+    private let placeholderImage = UIColor.Asset.lightGray.toImage()
+    private let slp = SwiftLinkPreview(cache: InMemoryCache())
     
     var feed: Feed? {
         didSet {
             if let feed = self.feed {
                 self.detailLabel.text = feed.feedPayload.contentPayload.content
-                self.addLinkViewToLinkLinkContainer()
-                self.fetchPreview(feed: feed)
+                self.loadLink(feed: feed)
                 
                 let url = URL(string: feed.feedPayload.author.avatar)
                 self.avatarImage.kf.setImage(with: url)
@@ -87,34 +93,57 @@ class QuoteCastTextLinkCell: UITableViewCell {
         self.followButton.setTitleColor(UIColor.Asset.lightBlue, for: .normal)
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.lineView.custom(color: UIColor.clear, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.lightGray)
-        self.linkContainer.custom(cornerRadius: 12)
+        self.linkContainer.custom(color: UIColor.Asset.darkGraphiteBlue, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.black)
+        self.titleLinkView.backgroundColor = UIColor.Asset.darkGraphiteBlue
+        self.linkTitleLabel.font = UIFont.asset(.regular, fontSize: .overline)
+        self.linkTitleLabel.textColor = UIColor.Asset.white
+        self.linkDescriptionLabel.font = UIFont.asset(.regular, fontSize: .small)
+        self.linkDescriptionLabel.textColor = UIColor.Asset.lightGray
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    private func addLinkViewToLinkLinkContainer() {
-        DispatchQueue.main.async {
-            self.linkView.frame = self.linkContainer.bounds
-            self.linkContainer.addSubview(self.linkView)
-            self.linkContainer.sizeToFit()
+    private func loadLink(feed: Feed) {
+        if let link = feed.feedPayload.contentPayload.link.first {
+            if let cached = self.slp.cache.slp_getCachedResponse(url: link.url) {
+                self.result = cached
+                self.setData()
+            } else {
+                self.slp.preview(link.url, onSuccess: { result in
+                    self.result = result
+                    self.setData()
+                }, onError: { error in
+                    self.setData()
+                })
+            }
+        } else {
+            self.setData()
         }
     }
-
-    private func fetchPreview(feed: Feed) {
-        if let link = feed.feedPayload.contentPayload.link.first, let url = URL(string: link.url) {
-            let metaDataProvider = LPMetadataProvider()
-            
-            metaDataProvider.startFetchingMetadata(for: url) { [weak self]  (metaData, error) in
-                if let error = error {
-                    print(error)
-                } else if let metaData = metaData {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.linkView.metadata = metaData
-                    }
-                }
-            }
+    
+    private func setData() {
+        // MARK: - Image
+        if let value = self.result.image {
+            let url = URL(string: value)
+            self.linkImage.kf.setImage(with: url, placeholder: self.placeholderImage, options: [.transition(.fade(1))])
+        } else {
+            self.linkImage.image = self.placeholderImage
+        }
+        
+        // MARK: - Title
+        if let value: String = self.result.title {
+            self.linkTitleLabel.text = value.isEmpty ? "No title" : value
+        } else {
+            self.linkTitleLabel.text = "No title"
+        }
+        
+        // MARK: - Description
+        if let value: String = self.result.description {
+            self.linkDescriptionLabel.text = value.isEmpty ? "" : value
+        } else {
+            self.linkDescriptionLabel.text = ""
         }
     }
     
