@@ -68,8 +68,8 @@ class CommentViewController: UIViewController {
         self.titleLabel.font = UIFont.asset(.regular, fontSize: .h4)
         self.titleLabel.textColor = UIColor.Asset.white
         
-        shift.baselineDuration = 0.3
-        shift.defaultAnimation = DefaultAnimations.Scale(.up)
+        self.shift.baselineDuration = 0.3
+        self.shift.defaultAnimation = DefaultAnimations.Scale(.up)
     }
     
     override func viewWillAppear(_ animated: Bool) {
