@@ -29,7 +29,6 @@ public struct PostNibVars {
     // MARK: - View Controller
     public struct ViewController {
         public static let post = "PostViewController"
-        public static let comment = "CommentViewController"
     }
     
     // MARK: - View
@@ -56,7 +55,5 @@ public struct PostNibVars {
     
     // MARK: - CollectionViewCell
     public struct CollectionViewCell {
-        public static let comment = "CommentCell"
-        public static let reply = "ReplyCell"
     }
 }

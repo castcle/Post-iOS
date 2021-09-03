@@ -30,7 +30,6 @@ import Core
 
 public enum PostScene {
     case post(PostViewModel)
-    case comment(CommentViewModel)
 }
 
 public struct PostOpener {
@@ -41,11 +40,6 @@ public struct PostOpener {
             let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post) as? PostViewController
             vc?.viewModel = viewModel
             return vc ?? PostViewController()
-        case .comment(let viewModel):
-            let storyboard: UIStoryboard = UIStoryboard(name: PostNibVars.Storyboard.post, bundle: ConfigBundle.post)
-            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.comment) as? CommentViewController
-            vc?.viewModel = viewModel
-            return vc ?? CommentViewController()
         }
     }
 }
