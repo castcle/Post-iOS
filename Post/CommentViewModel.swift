@@ -26,12 +26,34 @@
 //
 
 import Networking
+import Moya
+import SwiftyJSON
 
 public final class CommentViewModel {
     
+    private var commentRepository: CommentRepository
     var feed: Feed?
+    var comments: [Comment] = []
     
-    public init(feed: Feed? = nil) {
+    public init(commentRepository: CommentRepository = CommentRepositoryImpl(), feed: Feed? = nil) {
+        self.commentRepository = commentRepository
         self.feed = feed
+        self.getComments()
     }
+    
+    public func getComments() {
+        self.commentRepository.getComments(contentId: self.feed?.id ?? "") { (success, response) in
+            if success {
+                do {
+                    let rawJson = try response.mapJSON()
+                    let json = JSON(rawJson)
+                    let commentPayload = CommentPayload(json: json)
+                    self.comments = commentPayload.payload
+                } catch {}
+            }
+            self.didLoadCommentsFinish?()
+        }
+    }
+    
+    var didLoadCommentsFinish: (() -> ())?
 }

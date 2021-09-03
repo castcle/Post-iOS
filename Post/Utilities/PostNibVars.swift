@@ -56,5 +56,7 @@ public struct PostNibVars {
     
     // MARK: - CollectionViewCell
     public struct CollectionViewCell {
+        public static let comment = "CommentCell"
+        public static let reply = "ReplyCell"
     }
 }

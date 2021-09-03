@@ -70,6 +70,10 @@ class CommentViewController: UIViewController {
         
         self.shift.baselineDuration = 0.3
         self.shift.defaultAnimation = DefaultAnimations.Scale(.up)
+        
+        self.viewModel.didLoadCommentsFinish = {
+            self.adapter.performUpdates(animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,20 +99,21 @@ extension CommentViewController: ListAdapterDataSource {
             items.append(feed as ListDiffable)
         }
         
+        self.viewModel.comments.forEach { comment in
+            items.append(comment as ListDiffable)
+        }
+        
         return items
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-//        if object is HashtagShelf {
-//            return HashtagSectionController()
-//        } else if object is Feed {
-//
-//        } else {
-//            return NewPostSectionController()
-//        }
-        let section = FeedSectionController()
-        section.delegate = self
-        return section
+        if object is Feed {
+            let section = FeedSectionController()
+            section.delegate = self
+            return section
+        } else {
+            return CommentSectionController()
+        }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
