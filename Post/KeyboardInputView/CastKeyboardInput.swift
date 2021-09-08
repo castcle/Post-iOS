@@ -44,7 +44,7 @@ class CastKeyboardInput: UIView {
     }
     
     func commonInit() {
-        let castKeyboardView = ConfigBundle.post.loadNibNamed("CastKeyboardInput", owner: self, options: nil)?.first as! UIView
+        let castKeyboardView = ConfigBundle.post.loadNibNamed(PostNibVars.View.cast, owner: self, options: nil)?.first as! UIView
         castKeyboardView.frame = self.bounds
         castKeyboardView.backgroundColor = UIColor.Asset.darkGray
         self.addSubview(castKeyboardView)

@@ -36,6 +36,10 @@ public struct PostNibVars {
         public static let post = "Post"
     }
     
+    public struct View {
+        public static let cast = "CastKeyboardInput"
+    }
+    
     // MARK: - TableViewCell
     public struct TableViewCell {
         public static let header = "HeaderPostTableViewCell"

@@ -37,7 +37,6 @@ class PostViewController: UIViewController {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var blogSwitch: UISwitch!
-    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var toolbarView: UIView!
     
