@@ -30,6 +30,7 @@ import Core
 import Networking
 import SwiftColor
 import TLPhotoPicker
+import Defaults
 
 class PostViewController: UIViewController {
 
@@ -102,12 +103,14 @@ class PostViewController: UIViewController {
         self.configureTableView()
         self.toolbarView.addSubview(self.toolbarKeyboardInput)
         self.updateCastToolBarButton()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        Defaults[.screenId] = ""
     }
     
     override func viewWillDisappear(_ animated: Bool) {
