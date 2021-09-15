@@ -61,7 +61,6 @@ class QuoteCastTextLinkCell: UITableViewCell {
     @IBOutlet var linkDescriptionLabel: UILabel!
     
     private var result = Response()
-    private let placeholderImage = UIColor.Asset.lightGray.toImage()
     private let slp = SwiftLinkPreview(cache: InMemoryCache())
     
     var feed: Feed? {
@@ -127,9 +126,9 @@ class QuoteCastTextLinkCell: UITableViewCell {
         // MARK: - Image
         if let value = self.result.image {
             let url = URL(string: value)
-            self.linkImage.kf.setImage(with: url, placeholder: self.placeholderImage, options: [.transition(.fade(1))])
+            self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
         } else {
-            self.linkImage.image = self.placeholderImage
+            self.linkImage.image = UIImage.Asset.placeholder
         }
         
         // MARK: - Title
