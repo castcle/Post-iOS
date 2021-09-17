@@ -107,7 +107,7 @@ class PostTextTableViewCell: UITableViewCell {
             let mention = self.mension[index]
             
             let url = URL(string: mention.avatar)
-            cell.avatarImage.kf.setImage(with: url)
+            cell.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
             cell.idLabel.text = mention.id
         }
         
