@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B7C2522F26C812A800ACBB84 /* Post.h in Headers */ = {isa = PBXBuildFile; fileRef = B7C2522D26C812A800ACBB84 /* Post.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; };
-		B7C2523F26C818B900ACBB84 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2524226C8402200ACBB84 /* CastKeyboardInput.swift */; };
 		B7C2524526C8402D00ACBB84 /* CastKeyboardInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2524426C8402D00ACBB84 /* CastKeyboardInput.xib */; };
 		B7C2524726C8408800ACBB84 /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7C2524626C8408800ACBB84 /* Post.storyboard */; };
@@ -24,7 +23,6 @@
 		B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2526226CAC1D600ACBB84 /* ImagePostTableViewCell.swift */; };
 		B7C2526526CAC1D600ACBB84 /* ImagePostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2526326CAC1D600ACBB84 /* ImagePostTableViewCell.xib */; };
 		B7C2526726CB9D8C00ACBB84 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2526626CB9D8C00ACBB84 /* Networking.framework */; };
-		B7C2526826CB9D8C00ACBB84 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2526626CB9D8C00ACBB84 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7C2527526CBA99600ACBB84 /* QuoteCastTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2527326CBA99600ACBB84 /* QuoteCastTextCell.swift */; };
 		B7C2527626CBA99600ACBB84 /* QuoteCastTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2527426CBA99600ACBB84 /* QuoteCastTextCell.xib */; };
 		B7C2527926CC018000ACBB84 /* QuoteCastTextLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2527726CC018000ACBB84 /* QuoteCastTextLinkCell.swift */; };
@@ -47,21 +45,6 @@
 		B7C252A026CE3ED900ACBB84 /* HashtagTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C2529E26CE3ED900ACBB84 /* HashtagTableViewCell.xib */; };
 		C8652E2209B87A36BB49A921 /* Pods_Post.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B7C2524026C818B900ACBB84 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B7C2526826CB9D8C00ACBB84 /* Networking.framework in Embed Frameworks */,
-				B7C2523F26C818B900ACBB84 /* Core.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04C7E3D514892CDCA8F80DCB /* Pods-Post.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.debug (production).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.debug (production).xcconfig"; sourceTree = "<group>"; };
@@ -288,7 +271,6 @@
 				B7C2522626C812A800ACBB84 /* Sources */,
 				B7C2522726C812A800ACBB84 /* Frameworks */,
 				B7C2522826C812A800ACBB84 /* Resources */,
-				B7C2524026C818B900ACBB84 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
