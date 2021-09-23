@@ -103,7 +103,6 @@ class PostViewController: UIViewController {
         self.configureTableView()
         self.toolbarView.addSubview(self.toolbarKeyboardInput)
         self.updateCastToolBarButton()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
