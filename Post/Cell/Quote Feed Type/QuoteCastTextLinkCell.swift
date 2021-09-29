@@ -63,16 +63,16 @@ class QuoteCastTextLinkCell: UITableViewCell {
     private var result = Response()
     private let slp = SwiftLinkPreview(cache: InMemoryCache())
     
-    var feed: Feed? {
+    var content: Content? {
         didSet {
-            if let feed = self.feed {
-                self.detailLabel.text = feed.feedPayload.contentPayload.content
-                self.loadLink(feed: feed)
+            if let content = self.content {
+                self.detailLabel.text = content.contentPayload.message
+                self.loadLink(content: content)
                 
-                let url = URL(string: feed.feedPayload.author.avatar)
+                let url = URL(string: content.author.avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-                self.displayNameLabel.text = feed.feedPayload.author.displayName
-                self.dateLabel.text = feed.feedPayload.postDate.timeAgoDisplay()
+                self.displayNameLabel.text = content.author.displayName
+                self.dateLabel.text = content.postDate.timeAgoDisplay()
             } else {
                 return
             }
@@ -104,8 +104,8 @@ class QuoteCastTextLinkCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    private func loadLink(feed: Feed) {
-        if let link = feed.feedPayload.contentPayload.link.first {
+    private func loadLink(content: Content) {
+        if let link = content.contentPayload.link.first {
             if let cached = self.slp.cache.slp_getCachedResponse(url: link.url) {
                 self.result = cached
                 self.setData()

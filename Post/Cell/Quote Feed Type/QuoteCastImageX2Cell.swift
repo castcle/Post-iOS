@@ -56,23 +56,23 @@ class QuoteCastImageX2Cell: UITableViewCell {
     @IBOutlet var firstImageView: UIImageView!
     @IBOutlet var secondImageView: UIImageView!
     
-    var feed: Feed? {
+    var content: Content? {
         didSet {
-            if let feed = self.feed {
-                self.detailLabel.text = feed.feedPayload.contentPayload.content
+            if let content = self.content {
+                self.detailLabel.text = content.contentPayload.message
                 
-                if feed.feedPayload.contentPayload.photo.count >= 2 {
-                    let firstUrl = URL(string: feed.feedPayload.contentPayload.photo[0].url)
+                if content.contentPayload.photo.count >= 2 {
+                    let firstUrl = URL(string: content.contentPayload.photo[0].url)
                     self.firstImageView.kf.setImage(with: firstUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                     
-                    let secondUrl = URL(string: feed.feedPayload.contentPayload.photo[1].url)
+                    let secondUrl = URL(string: content.contentPayload.photo[1].url)
                     self.secondImageView.kf.setImage(with: secondUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                 }
                 
-                let url = URL(string: feed.feedPayload.author.avatar)
+                let url = URL(string: content.author.avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-                self.displayNameLabel.text = feed.feedPayload.author.displayName
-                self.dateLabel.text = feed.feedPayload.postDate.timeAgoDisplay()
+                self.displayNameLabel.text = content.author.displayName
+                self.dateLabel.text = content.postDate.timeAgoDisplay()
             } else {
                 return
             }

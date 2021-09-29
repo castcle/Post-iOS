@@ -50,26 +50,26 @@ class QuoteCastBlogCell: UITableViewCell {
     }
     @IBOutlet var blogImageView: UIImageView!
     
-    var feed: Feed? {
+    var content: Content? {
         didSet {
-            if let feed = self.feed {
-                self.detailLabel.text = feed.feedPayload.contentPayload.content
+            if let content = self.content {
+                self.detailLabel.text = content.contentPayload.message
                 
                 self.headerLabel.font = UIFont.asset(.medium, fontSize: .h4)
                 self.headerLabel.textColor = UIColor.Asset.white
                 self.detailLabel.font = UIFont.asset(.regular, fontSize: .overline)
                 self.detailLabel.textColor = UIColor.Asset.lightGray
                 
-                self.headerLabel.text = feed.feedPayload.contentPayload.header
-                self.detailLabel.text = feed.feedPayload.contentPayload.content
+                self.headerLabel.text = content.contentPayload.header
+                self.detailLabel.text = content.contentPayload.message
                 
-                let imageUrl = URL(string: feed.feedPayload.contentPayload.cover)
+                let imageUrl = URL(string: content.contentPayload.cover)
                 self.blogImageView.kf.setImage(with: imageUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                 
-                let url = URL(string: feed.feedPayload.author.avatar)
+                let url = URL(string: content.author.avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-                self.displayNameLabel.text = feed.feedPayload.author.displayName
-                self.dateLabel.text = feed.feedPayload.postDate.timeAgoDisplay()
+                self.displayNameLabel.text = content.author.displayName
+                self.dateLabel.text = content.postDate.timeAgoDisplay()
             } else {
                 return
             }

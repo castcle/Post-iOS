@@ -54,20 +54,20 @@ class QuoteCastImageX1Cell: UITableViewCell {
     
     @IBOutlet var firstImageView: UIImageView!
     
-    var feed: Feed? {
+    var content: Content? {
         didSet {
-            if let feed = self.feed {
-                self.detailLabel.text = feed.feedPayload.contentPayload.content
+            if let content = self.content {
+                self.detailLabel.text = content.contentPayload.message
                 
-                if let imageUrl = feed.feedPayload.contentPayload.photo.first {
+                if let imageUrl = content.contentPayload.photo.first {
                     let url = URL(string: imageUrl.url)
                     self.firstImageView.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                 }
                 
-                let url = URL(string: feed.feedPayload.author.avatar)
+                let url = URL(string: content.author.avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-                self.displayNameLabel.text = feed.feedPayload.author.displayName
-                self.dateLabel.text = feed.feedPayload.postDate.timeAgoDisplay()
+                self.displayNameLabel.text = content.author.displayName
+                self.dateLabel.text = content.postDate.timeAgoDisplay()
             } else {
                 return
             }

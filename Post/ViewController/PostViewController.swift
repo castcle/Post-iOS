@@ -31,6 +31,7 @@ import Networking
 import SwiftColor
 import TLPhotoPicker
 import Defaults
+import JGProgressHUD
 
 class PostViewController: UIViewController {
 
@@ -42,6 +43,7 @@ class PostViewController: UIViewController {
     @IBOutlet var toolbarView: UIView!
     
     var viewModel = PostViewModel()
+    let hud = JGProgressHUD()
     
     private lazy var castKeyboardInput: CastKeyboardInput = {
         let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
@@ -103,12 +105,14 @@ class PostViewController: UIViewController {
         self.configureTableView()
         self.toolbarView.addSubview(self.toolbarKeyboardInput)
         self.updateCastToolBarButton()
+        self.viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        self.hud.textLabel.text = "Loading"
         Defaults[.screenId] = ""
     }
     
@@ -155,7 +159,8 @@ class PostViewController: UIViewController {
     
     @objc func castAction() {
         if self.viewModel.isCanPost() {
-            self.dismiss(animated: true, completion: nil)
+            self.hud.show(in: self.view)
+            self.viewModel.createContent()
         }
     }
     
@@ -292,46 +297,46 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.configCell(image: self.viewModel.imageInsert)
             return cell ?? ImagePostTableViewCell()
         case PostViewControllerSection.quote.rawValue:
-            guard let feed = self.viewModel.feed else { return UITableViewCell() }
-            if feed.feedPayload.feedDisplayType == .postText {
+            guard let content = self.viewModel.content else { return UITableViewCell() }
+            if content.feedDisplayType == .postText {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteText, for: indexPath as IndexPath) as? QuoteCastTextCell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastTextCell()
-            } else if feed.feedPayload.feedDisplayType == .postLink || feed.feedPayload.feedDisplayType == .postYoutube {
+            } else if content.feedDisplayType == .postLink || content.feedDisplayType == .postYoutube {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteTextLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastTextLinkCell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX1 {
+            } else if content.feedDisplayType == .postImageX1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX1, for: indexPath as IndexPath) as? QuoteCastImageX1Cell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastImageX1Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX2 {
+            } else if content.feedDisplayType == .postImageX2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX2, for: indexPath as IndexPath) as? QuoteCastImageX2Cell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastImageX2Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX3 {
+            } else if content.feedDisplayType == .postImageX3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX3, for: indexPath as IndexPath) as? QuoteCastImageX3Cell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastImageX3Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageXMore {
+            } else if content.feedDisplayType == .postImageXMore {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageXMore, for: indexPath as IndexPath) as? QuoteCastImageXMoreCell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastImageXMoreCell()
-            } else if feed.feedPayload.feedDisplayType == .blogImage {
+            } else if content.feedDisplayType == .blogImage {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlog, for: indexPath as IndexPath) as? QuoteCastBlogCell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastBlogCell()
-            } else if feed.feedPayload.feedDisplayType == .blogNoImage {
+            } else if content.feedDisplayType == .blogNoImage {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlogNoImage, for: indexPath as IndexPath) as? QuoteCastBlogNoImageCell
                 cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
+                cell?.content = content
                 return cell ?? QuoteCastBlogNoImageCell()
             } else {
                 return UITableViewCell()
@@ -382,5 +387,14 @@ extension PostViewController: TLPhotosPickerViewControllerDelegate {
         let index = IndexPath(row: 0, section: 2)
         self.tableView.reloadRows(at: [index], with: .automatic)
         return true
+    }
+}
+
+extension PostViewController: PostViewModelDelegate {
+    func didCreateContentFinish(success: Bool) {
+        self.hud.dismiss()
+        if success {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
