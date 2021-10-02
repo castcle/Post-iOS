@@ -160,7 +160,11 @@ class PostViewController: UIViewController {
     @objc func castAction() {
         if self.viewModel.isCanPost() {
             self.hud.show(in: self.view)
-            self.viewModel.createContent()
+            if self.viewModel.postType == .newCast {
+                self.viewModel.createContent()
+            } else {
+                self.viewModel.quotecastContent()
+            }
         }
     }
     
@@ -303,7 +307,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.backgroundColor = UIColor.clear
                 cell?.content = content
                 return cell ?? QuoteCastTextCell()
-            } else if content.feedDisplayType == .postLink || content.feedDisplayType == .postYoutube {
+            } else if content.feedDisplayType == .postLink {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteTextLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
                 cell?.backgroundColor = UIColor.clear
                 cell?.content = content
@@ -392,6 +396,13 @@ extension PostViewController: TLPhotosPickerViewControllerDelegate {
 
 extension PostViewController: PostViewModelDelegate {
     func didCreateContentFinish(success: Bool) {
+        self.hud.dismiss()
+        if success {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func didQuotecastContentFinish(success: Bool) {
         self.hud.dismiss()
         if success {
             self.dismiss(animated: true, completion: nil)

@@ -39,6 +39,7 @@ public enum PostType: String {
 
 public protocol PostViewModelDelegate {
     func didCreateContentFinish(success: Bool)
+    func didQuotecastContentFinish(success: Bool)
 }
 
 public final class PostViewModel {
@@ -55,7 +56,7 @@ public final class PostViewModel {
     var content: Content?
     var page: Page?
     
-    public init(postType: PostType = .newCast, content: Content? = nil, page: Page = Page(name: UserState.shared.name, avatar: UserState.shared.avatar)) {
+    public init(postType: PostType = .newCast, content: Content? = nil, page: Page = Page(name: UserState.shared.name, avatar: UserState.shared.avatar, castcleId: UserState.shared.rawCastcleId)) {
         self.postType = postType
         self.content = content
         self.page = page
@@ -101,10 +102,38 @@ public final class PostViewModel {
             }
         }
     }
+    
+    func quotecastContent() {
+        guard let content = self.content else { return }
+        self.contentRequest.message = self.postText
+        self.contentRequest.castcleId = UserState.shared.rawCastcleId
+        self.contentRepository.quotecastContent(contentId: content.id, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+            if success {
+                do {
+                    let rawJson = try response.mapJSON()
+                    let json = JSON(rawJson)
+                    print(json)
+                    self.delegate?.didQuotecastContentFinish(success: success)
+                } catch {
+                    self.delegate?.didQuotecastContentFinish(success: success)
+                }
+            } else {
+                if isRefreshToken {
+                    self.tokenHelper.refreshToken()
+                } else {
+                    self.delegate?.didQuotecastContentFinish(success: false)
+                }
+            }
+        }
+    }
 }
 
 extension PostViewModel: TokenHelperDelegate {
     public func didRefreshTokenFinish() {
-        self.createContent()
+        if self.postType == .newCast {
+            self.createContent()
+        } else if self.postType == .quoteCast {
+            self.quotecastContent()
+        }
     }
 }

@@ -73,6 +73,11 @@ class QuoteCastTextLinkCell: UITableViewCell {
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
+                if UserState.shared.rawCastcleId == content.author.castcleId {
+                    self.followButton.isHidden = true
+                } else {
+                    self.followButton.isHidden = false
+                }
             } else {
                 return
             }
