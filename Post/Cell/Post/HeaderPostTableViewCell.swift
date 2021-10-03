@@ -60,6 +60,6 @@ class HeaderPostTableViewCell: UITableViewCell {
         guard let page = page else { return }
         let url = URL(string: page.avatar)
         self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-        self.displayNameLabel.text = page.name
+        self.displayNameLabel.text = page.displayName
     }
 }

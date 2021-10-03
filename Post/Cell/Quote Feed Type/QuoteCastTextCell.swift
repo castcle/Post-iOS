@@ -61,7 +61,7 @@ class QuoteCastTextCell: UITableViewCell {
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
                 
-                if UserState.shared.rawCastcleId == content.author.castcleId {
+                if UserManager.shared.rawCastcleId == content.author.castcleId {
                     self.followButton.isHidden = true
                 } else {
                     self.followButton.isHidden = false
