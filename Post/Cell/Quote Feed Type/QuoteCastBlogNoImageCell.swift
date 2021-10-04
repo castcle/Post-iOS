@@ -65,7 +65,8 @@ class QuoteCastBlogNoImageCell: UITableViewCell {
                 
                 self.blogImageView.image = UIColor.Asset.black.toImage()
                 
-                let url = URL(string: content.author.avatar)
+                let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar)
+                let url = URL(string: avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
@@ -89,7 +90,6 @@ class QuoteCastBlogNoImageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.avatarImage.circle(color: UIColor.Asset.white)
         self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
