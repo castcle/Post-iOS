@@ -59,8 +59,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EP0-Cd-erz">
                                 <rect key="frame" x="139" y="8.5" width="15" height="15"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="EP0-Cd-erz" secondAttribute="height" multiplier="1:1" id="CcG-6b-XxQ"/>
                                     <constraint firstAttribute="width" constant="15" id="IW5-ew-dhp"/>
-                                    <constraint firstAttribute="height" constant="15" id="IkI-ua-Iu4"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -173,6 +173,7 @@
                 <outlet property="moreLabel" destination="gM0-AW-CWp" id="a0k-cF-30Y"/>
                 <outlet property="secondImageView" destination="GTJ-KX-LDu" id="qPV-Bg-4xO"/>
                 <outlet property="thirdImageView" destination="DWw-IL-Icz" id="097-CG-oRb"/>
+                <outlet property="verifyConstraintWidth" destination="IW5-ew-dhp" id="xON-Lq-BFR"/>
                 <outlet property="verifyIcon" destination="EP0-Cd-erz" id="86w-dG-mNo"/>
             </connections>
             <point key="canvasLocation" x="121.73913043478262" y="237.38839285714283"/>

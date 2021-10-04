@@ -51,11 +51,11 @@ class QuoteCastImageX3Cell: UITableViewCell {
             }
         }
     }
-    
     @IBOutlet var imageContainer: UIView!
     @IBOutlet var firstImageView: UIImageView!
     @IBOutlet var secondImageView: UIImageView!
     @IBOutlet var thirdImageView: UIImageView!
+    @IBOutlet var verifyConstraintWidth: NSLayoutConstraint!
     
     var content: Content? {
         didSet {
@@ -81,6 +81,13 @@ class QuoteCastImageX3Cell: UITableViewCell {
                     self.followButton.isHidden = true
                 } else {
                     self.followButton.isHidden = false
+                }
+                if content.author.verified.official {
+                    self.verifyConstraintWidth.constant = 15.0
+                    self.verifyIcon.isHidden = false
+                } else {
+                    self.verifyConstraintWidth.constant = 0.0
+                    self.verifyIcon.isHidden = true
                 }
             } else {
                 return

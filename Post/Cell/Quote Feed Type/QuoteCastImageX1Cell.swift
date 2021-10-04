@@ -51,8 +51,8 @@ class QuoteCastImageX1Cell: UITableViewCell {
             }
         }
     }
-    
     @IBOutlet var firstImageView: UIImageView!
+    @IBOutlet var verifyConstraintWidth: NSLayoutConstraint!
     
     var content: Content? {
         didSet {
@@ -72,6 +72,13 @@ class QuoteCastImageX1Cell: UITableViewCell {
                     self.followButton.isHidden = true
                 } else {
                     self.followButton.isHidden = false
+                }
+                if content.author.verified.official {
+                    self.verifyConstraintWidth.constant = 15.0
+                    self.verifyIcon.isHidden = false
+                } else {
+                    self.verifyConstraintWidth.constant = 0.0
+                    self.verifyIcon.isHidden = true
                 }
             } else {
                 return

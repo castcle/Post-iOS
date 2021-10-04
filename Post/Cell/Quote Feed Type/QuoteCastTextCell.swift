@@ -51,6 +51,7 @@ class QuoteCastTextCell: UITableViewCell {
             }
         }
     }
+    @IBOutlet var verifyConstraintWidth: NSLayoutConstraint!
     
     var content: Content? {
         didSet {
@@ -60,11 +61,17 @@ class QuoteCastTextCell: UITableViewCell {
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
-                
                 if UserManager.shared.rawCastcleId == content.author.castcleId {
                     self.followButton.isHidden = true
                 } else {
                     self.followButton.isHidden = false
+                }
+                if content.author.verified.official {
+                    self.verifyConstraintWidth.constant = 15.0
+                    self.verifyIcon.isHidden = false
+                } else {
+                    self.verifyConstraintWidth.constant = 0.0
+                    self.verifyIcon.isHidden = true
                 }
             } else {
                 return

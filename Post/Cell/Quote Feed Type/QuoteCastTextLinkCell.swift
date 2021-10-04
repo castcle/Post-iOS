@@ -53,12 +53,12 @@ class QuoteCastTextLinkCell: UITableViewCell {
             }
         }
     }
-    
     @IBOutlet var linkContainer: UIView!
     @IBOutlet var titleLinkView: UIView!
     @IBOutlet var linkImage: UIImageView!
     @IBOutlet var linkTitleLabel: UILabel!
     @IBOutlet var linkDescriptionLabel: UILabel!
+    @IBOutlet var verifyConstraintWidth: NSLayoutConstraint!
     
     private var result = Response()
     private let slp = SwiftLinkPreview(cache: InMemoryCache())
@@ -77,6 +77,13 @@ class QuoteCastTextLinkCell: UITableViewCell {
                     self.followButton.isHidden = true
                 } else {
                     self.followButton.isHidden = false
+                }
+                if content.author.verified.official {
+                    self.verifyConstraintWidth.constant = 15.0
+                    self.verifyIcon.isHidden = false
+                } else {
+                    self.verifyConstraintWidth.constant = 0.0
+                    self.verifyIcon.isHidden = true
                 }
             } else {
                 return

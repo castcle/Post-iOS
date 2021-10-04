@@ -59,7 +59,7 @@
                                 <rect key="frame" x="139" y="8.5" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="IW5-ew-dhp"/>
-                                    <constraint firstAttribute="height" constant="15" id="IkI-ua-Iu4"/>
+                                    <constraint firstAttribute="width" secondItem="EP0-Cd-erz" secondAttribute="height" multiplier="1:1" id="M7V-He-4Zq"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -108,6 +108,7 @@
                 <outlet property="displayNameLabel" destination="6e9-Mj-X5r" id="HeB-Rw-gaH"/>
                 <outlet property="followButton" destination="tI4-g0-ZT0" id="2xt-GE-HXt"/>
                 <outlet property="lineView" destination="tqj-Xk-8bZ" id="UWo-dR-1Hn"/>
+                <outlet property="verifyConstraintWidth" destination="IW5-ew-dhp" id="fPj-rj-aMf"/>
                 <outlet property="verifyIcon" destination="EP0-Cd-erz" id="86w-dG-mNo"/>
             </connections>
             <point key="canvasLocation" x="121.73913043478262" y="130.24553571428572"/>

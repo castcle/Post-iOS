@@ -61,5 +61,10 @@ class HeaderPostTableViewCell: UITableViewCell {
         let url = URL(string: page.avatar)
         self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
         self.displayNameLabel.text = page.displayName
+        if UserManager.shared.official {
+            self.verifyIcon.isHidden = false
+        } else {
+            self.verifyIcon.isHidden = true
+        }
     }
 }
