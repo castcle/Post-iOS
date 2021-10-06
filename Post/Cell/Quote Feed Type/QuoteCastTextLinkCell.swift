@@ -67,7 +67,14 @@ class QuoteCastTextLinkCell: UITableViewCell {
         didSet {
             if let content = self.content {
                 self.detailLabel.text = content.contentPayload.message
-                self.loadLink(content: content)
+                if let link = content.contentPayload.link.first {
+                    self.loadLink(link: link.url)
+                } else if let link = content.contentPayload.message.detectedFirstLink {
+                    self.loadLink(link: link)
+                } else {
+                    self.setData()
+                }
+                
                 let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar)
                 let url = URL(string: avatar)
                 self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
@@ -116,21 +123,17 @@ class QuoteCastTextLinkCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    private func loadLink(content: Content) {
-        if let link = content.contentPayload.link.first {
-            if let cached = self.slp.cache.slp_getCachedResponse(url: link.url) {
-                self.result = cached
-                self.setData()
-            } else {
-                self.slp.preview(link.url, onSuccess: { result in
-                    self.result = result
-                    self.setData()
-                }, onError: { error in
-                    self.setData()
-                })
-            }
-        } else {
+    private func loadLink(link: String) {
+        if let cached = self.slp.cache.slp_getCachedResponse(url: link) {
+            self.result = cached
             self.setData()
+        } else {
+            self.slp.preview(link, onSuccess: { result in
+                self.result = result
+                self.setData()
+            }, onError: { error in
+                self.setData()
+            })
         }
     }
     
