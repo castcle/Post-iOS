@@ -80,6 +80,11 @@ public final class PostViewModel {
     }
     
     func createContent() {
+        self.imageInsert.forEach { asset in
+            if let image = asset.fullResolutionImage {
+                self.contentRequest.payload.image.append(image.resizeImage(targetSize: CGSize.init(width: 1024, height: 1024)).toBase64() ?? "")
+            }
+        }
         self.contentRequest.payload.message = self.postText
         self.contentRequest.castcleId = UserManager.shared.rawCastcleId
         self.contentRequest.type = .short
