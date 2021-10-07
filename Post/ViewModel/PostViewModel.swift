@@ -90,14 +90,7 @@ public final class PostViewModel {
         self.contentRequest.type = .short
         self.contentRepository.createContent(featureSlug: self.featureSlug, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
             if success {
-                do {
-                    let rawJson = try response.mapJSON()
-                    let json = JSON(rawJson)
-                    print(json)
-                    self.delegate?.didCreateContentFinish(success: success)
-                } catch {
-                    self.delegate?.didCreateContentFinish(success: false)
-                }
+                self.delegate?.didCreateContentFinish(success: success)
             } else {
                 if isRefreshToken {
                     self.tokenHelper.refreshToken()
