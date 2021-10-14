@@ -19,7 +19,7 @@
 //  Thailand 10160, or visit www.castcle.com if you need additional information
 //  or have any questions.
 //
-//  QuoteCastTextLinkCell.swift
+//  QuoteCastTextLinkPreviewCell.swift
 //  Post
 //
 //  Created by Tanakorn Phoochaliaw on 17/8/2564 BE.
@@ -31,9 +31,8 @@ import Core
 import Networking
 import ActiveLabel
 import SwiftLinkPreview
-import SkeletonView
 
-class QuoteCastTextLinkCell: UITableViewCell {
+class QuoteCastTextLinkPreviewCell: UITableViewCell {
 
     @IBOutlet var avatarImage: UIImageView!
     @IBOutlet var verifyIcon: UIImageView!
@@ -54,17 +53,50 @@ class QuoteCastTextLinkCell: UITableViewCell {
             }
         }
     }
-    
     @IBOutlet var linkContainer: UIView!
     @IBOutlet var titleLinkView: UIView!
     @IBOutlet var linkImage: UIImageView!
     @IBOutlet var linkTitleLabel: UILabel!
     @IBOutlet var linkDescriptionLabel: UILabel!
-    @IBOutlet var skeletonView: UIView!
     @IBOutlet var verifyConstraintWidth: NSLayoutConstraint!
     
     private var result = Response()
     private let slp = SwiftLinkPreview(cache: InMemoryCache())
+    
+    var content: Content? {
+        didSet {
+            if let content = self.content {
+                self.detailLabel.text = content.contentPayload.message
+                if let link = content.contentPayload.link.first {
+                    self.loadLink(link: link.url)
+                } else if let link = content.contentPayload.message.detectedFirstLink {
+                    self.loadLink(link: link)
+                } else {
+                    self.setData()
+                }
+                
+                let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar)
+                let url = URL(string: avatar)
+                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
+                self.displayNameLabel.text = content.author.displayName
+                self.dateLabel.text = content.postDate.timeAgoDisplay()
+                if UserManager.shared.rawCastcleId == content.author.castcleId {
+                    self.followButton.isHidden = true
+                } else {
+                    self.followButton.isHidden = false
+                }
+                if content.author.verified.official {
+                    self.verifyConstraintWidth.constant = 15.0
+                    self.verifyIcon.isHidden = false
+                } else {
+                    self.verifyConstraintWidth.constant = 0.0
+                    self.verifyIcon.isHidden = true
+                }
+            } else {
+                return
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,56 +106,21 @@ class QuoteCastTextLinkCell: UITableViewCell {
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.dateLabel.font = UIFont.asset(.regular, fontSize: .custom(size: 10))
         self.dateLabel.textColor = UIColor.Asset.lightGray
+        
         self.followButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .overline)
         self.followButton.setTitleColor(UIColor.Asset.lightBlue, for: .normal)
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.lineView.custom(color: UIColor.clear, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.lightGray)
         self.linkContainer.custom(color: UIColor.Asset.darkGraphiteBlue, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.black)
-        self.skeletonView.custom(cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.gray)
-        self.linkContainer.custom(cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.gray)
         self.titleLinkView.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.linkTitleLabel.font = UIFont.asset(.regular, fontSize: .overline)
         self.linkTitleLabel.textColor = UIColor.Asset.white
         self.linkDescriptionLabel.font = UIFont.asset(.regular, fontSize: .small)
         self.linkDescriptionLabel.textColor = UIColor.Asset.lightGray
-        self.skeletonView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.Asset.gray))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
-    
-    func configCell(content: Content?) {
-        guard let content = content else { return }
-        
-        self.detailLabel.text = content.contentPayload.message
-        self.skeletonView.isHidden = false
-        self.linkContainer.isHidden = true
-        if let link = content.contentPayload.link.first {
-            self.loadLink(link: link.url)
-        } else if let link = content.contentPayload.message.detectedFirstLink {
-            self.loadLink(link: link)
-        } else {
-            self.setData()
-        }
-        
-        let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar)
-        let url = URL(string: avatar)
-        self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-        self.displayNameLabel.text = content.author.displayName
-        self.dateLabel.text = content.postDate.timeAgoDisplay()
-        if UserManager.shared.rawCastcleId == content.author.castcleId {
-            self.followButton.isHidden = true
-        } else {
-            self.followButton.isHidden = false
-        }
-        if content.author.verified.official {
-            self.verifyConstraintWidth.constant = 15.0
-            self.verifyIcon.isHidden = false
-        } else {
-            self.verifyConstraintWidth.constant = 0.0
-            self.verifyIcon.isHidden = true
-        }
     }
     
     private func loadLink(link: String) {
@@ -141,13 +138,8 @@ class QuoteCastTextLinkCell: UITableViewCell {
     }
     
     private func setData() {
-        UIView.transition(with: self, duration: 0.35, options: .transitionCrossDissolve, animations: {
-            self.skeletonView.isHidden = true
-            self.linkContainer.isHidden = false
-        })
-        
         // MARK: - Image
-        if let value = self.result.icon {
+        if let value = self.result.image {
             let url = URL(string: value)
             self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
         } else {
@@ -156,9 +148,9 @@ class QuoteCastTextLinkCell: UITableViewCell {
         
         // MARK: - Title
         if let value: String = self.result.title {
-            self.linkTitleLabel.text = value.isEmpty ? "" : value
+            self.linkTitleLabel.text = value.isEmpty ? "No title" : value
         } else {
-            self.linkTitleLabel.text = ""
+            self.linkTitleLabel.text = "No title"
         }
         
         // MARK: - Description

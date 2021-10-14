@@ -137,7 +137,8 @@ class PostViewController: UIViewController {
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.newPost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.newPost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.imagePost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.imagePost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteText, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteText)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteTextLink, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteTextLink)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteLink, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteLink)
+        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteLinkPreview, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteLinkPreview)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX1, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX1)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX2, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX2)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX3, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX3)
@@ -308,10 +309,15 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.content = content
                 return cell ?? QuoteCastTextCell()
             } else if content.feedDisplayType == .postLink {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteTextLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
+                cell?.backgroundColor = UIColor.clear
+                cell?.configCell(content: content)
+                return cell ?? QuoteCastTextLinkCell()
+            } else if content.feedDisplayType == .postLinkPreview {
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteLinkPreview, for: indexPath as IndexPath) as? QuoteCastTextLinkPreviewCell
                 cell?.backgroundColor = UIColor.clear
                 cell?.content = content
-                return cell ?? QuoteCastTextLinkCell()
+                return cell ?? QuoteCastTextLinkPreviewCell()
             } else if content.feedDisplayType == .postImageX1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX1, for: indexPath as IndexPath) as? QuoteCastImageX1Cell
                 cell?.backgroundColor = UIColor.clear

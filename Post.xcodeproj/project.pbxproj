@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7AC1E4E27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7AC1E4C27180AAB002FC176 /* QuoteCastTextLinkPreviewCell.xib */; };
+		B7AC1E4F27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC1E4D27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.swift */; };
 		B7C2522F26C812A800ACBB84 /* Post.h in Headers */ = {isa = PBXBuildFile; fileRef = B7C2522D26C812A800ACBB84 /* Post.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; };
 		B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C2524226C8402200ACBB84 /* CastKeyboardInput.swift */; };
@@ -53,6 +55,8 @@
 		289D7CBE1FD86DF81CCA5667 /* Pods-Post.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (development).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (development).xcconfig"; sourceTree = "<group>"; };
 		59BD8A1899B67DA3615DAAAD /* Pods-Post.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (production).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (production).xcconfig"; sourceTree = "<group>"; };
 		6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7AC1E4C27180AAB002FC176 /* QuoteCastTextLinkPreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuoteCastTextLinkPreviewCell.xib; sourceTree = "<group>"; };
+		B7AC1E4D27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCastTextLinkPreviewCell.swift; sourceTree = "<group>"; };
 		B7C2522A26C812A800ACBB84 /* Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C2522D26C812A800ACBB84 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		B7C2522E26C812A800ACBB84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 				B7C2527426CBA99600ACBB84 /* QuoteCastTextCell.xib */,
 				B7C2527726CC018000ACBB84 /* QuoteCastTextLinkCell.swift */,
 				B7C2527826CC018000ACBB84 /* QuoteCastTextLinkCell.xib */,
+				B7AC1E4D27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.swift */,
+				B7AC1E4C27180AAB002FC176 /* QuoteCastTextLinkPreviewCell.xib */,
 				B7C2527B26CC07CA00ACBB84 /* QuoteCastImageX1Cell.swift */,
 				B7C2527C26CC07CA00ACBB84 /* QuoteCastImageX1Cell.xib */,
 				B7C2528526CC130E00ACBB84 /* QuoteCastImageX2Cell.swift */,
@@ -332,6 +338,7 @@
 				B7C2525F26CA3C4400ACBB84 /* HeaderPostTableViewCell.xib in Resources */,
 				B7C2527E26CC07CA00ACBB84 /* QuoteCastImageX1Cell.xib in Resources */,
 				B7C2525B26CA28FF00ACBB84 /* PostTextTableViewCell.xib in Resources */,
+				B7AC1E4E27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.xib in Resources */,
 				B7C2528826CC130E00ACBB84 /* QuoteCastImageX2Cell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +387,7 @@
 				B7C2527926CC018000ACBB84 /* QuoteCastTextLinkCell.swift in Sources */,
 				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,
 				B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */,
+				B7AC1E4F27180AAC002FC176 /* QuoteCastTextLinkPreviewCell.swift in Sources */,
 				B7C2524F26C84C8500ACBB84 /* PostNibVars.swift in Sources */,
 				B7C2528926CC130E00ACBB84 /* QuoteCastImageX2Cell.swift in Sources */,
 				B7C2528F26CC15E300ACBB84 /* QuoteCastBlogNoImageCell.swift in Sources */,
