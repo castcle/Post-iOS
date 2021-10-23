@@ -22,7 +22,7 @@
 //  QuoteCastImageX2Cell.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 17/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 17/8/2564 BE.
 //
 
 import UIKit

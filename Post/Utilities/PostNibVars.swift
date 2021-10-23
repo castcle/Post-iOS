@@ -22,7 +22,7 @@
 //  PostNibVars.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 15/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 15/8/2564 BE.
 //
 
 public struct PostNibVars {
