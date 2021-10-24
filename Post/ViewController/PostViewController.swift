@@ -50,7 +50,7 @@ class PostViewController: UIViewController {
         inputView.castButton.setTitle("Cast", for: .normal)
         inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         inputView.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
-        inputView.castButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .body)
+        inputView.castButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .body)
         inputView.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
@@ -64,7 +64,7 @@ class PostViewController: UIViewController {
         inputView.castButton.setTitle("Cast", for: .normal)
         inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         inputView.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
-        inputView.castButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .body)
+        inputView.castButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .body)
         inputView.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
@@ -180,7 +180,7 @@ class PostViewController: UIViewController {
         photosPickerViewController.subTitleLabel.font = UIFont.asset(.regular, fontSize: .small)
         
         photosPickerViewController.doneButton.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont.asset(.medium, fontSize: .h4),
+            NSAttributedString.Key.font : UIFont.asset(.bold, fontSize: .h4),
             NSAttributedString.Key.foregroundColor : UIColor.Asset.lightBlue
         ], for: .normal)
         photosPickerViewController.cancelButton.setTitleTextAttributes([

@@ -43,7 +43,7 @@ class QuoteCastTextLinkPreviewCell: UITableViewCell {
     @IBOutlet var detailLabel: ActiveLabel! {
         didSet {
             self.detailLabel.customize { label in
-                label.font = UIFont.asset(.regular, fontSize: .overline)
+                label.font = UIFont.asset(.contentLight, fontSize: .overline)
                 label.numberOfLines = 0
                 label.enabledTypes = [.mention, .hashtag, .url]
                 label.textColor = UIColor.Asset.white
@@ -102,20 +102,20 @@ class QuoteCastTextLinkPreviewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.avatarImage.circle(color: UIColor.Asset.white)
-        self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
+        self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.dateLabel.font = UIFont.asset(.regular, fontSize: .custom(size: 10))
         self.dateLabel.textColor = UIColor.Asset.lightGray
         
-        self.followButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .overline)
+        self.followButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .overline)
         self.followButton.setTitleColor(UIColor.Asset.lightBlue, for: .normal)
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.lineView.custom(color: UIColor.clear, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.lightGray)
         self.linkContainer.custom(color: UIColor.Asset.darkGraphiteBlue, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.black)
         self.titleLinkView.backgroundColor = UIColor.Asset.darkGraphiteBlue
-        self.linkTitleLabel.font = UIFont.asset(.regular, fontSize: .overline)
+        self.linkTitleLabel.font = UIFont.asset(.contentBold, fontSize: .overline)
         self.linkTitleLabel.textColor = UIColor.Asset.white
-        self.linkDescriptionLabel.font = UIFont.asset(.regular, fontSize: .small)
+        self.linkDescriptionLabel.font = UIFont.asset(.contentLight, fontSize: .small)
         self.linkDescriptionLabel.textColor = UIColor.Asset.lightGray
     }
 

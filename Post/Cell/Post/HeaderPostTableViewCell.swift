@@ -43,7 +43,7 @@ class HeaderPostTableViewCell: UITableViewCell {
         
         
         self.avatarImage.circle(color: UIColor.Asset.white)
-        self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
+        self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.statusLabel.font = UIFont.asset(.regular, fontSize: .small)

@@ -43,7 +43,7 @@ class QuoteCastBlogCell: UITableViewCell {
     @IBOutlet var detailLabel: NantesLabel! {
         didSet {
             let attributes = [NSAttributedString.Key.foregroundColor: UIColor.Asset.lightBlue,
-                              NSAttributedString.Key.font: UIFont.asset(.regular, fontSize: .overline)]
+                              NSAttributedString.Key.font: UIFont.asset(.contentLight, fontSize: .overline)]
             self.detailLabel.attributedTruncationToken = NSAttributedString(string: " Read More...", attributes: attributes)
             self.detailLabel.numberOfLines = 2
         }
@@ -56,9 +56,9 @@ class QuoteCastBlogCell: UITableViewCell {
             if let content = self.content {
                 self.detailLabel.text = content.contentPayload.message
                 
-                self.headerLabel.font = UIFont.asset(.medium, fontSize: .h4)
+                self.headerLabel.font = UIFont.asset(.contentBold, fontSize: .h4)
                 self.headerLabel.textColor = UIColor.Asset.white
-                self.detailLabel.font = UIFont.asset(.regular, fontSize: .overline)
+                self.detailLabel.font = UIFont.asset(.contentLight, fontSize: .overline)
                 self.detailLabel.textColor = UIColor.Asset.lightGray
                 
                 self.headerLabel.text = content.contentPayload.header
@@ -94,12 +94,12 @@ class QuoteCastBlogCell: UITableViewCell {
         super.awakeFromNib()
         
         self.avatarImage.circle(color: UIColor.Asset.white)
-        self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
+        self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.dateLabel.font = UIFont.asset(.regular, fontSize: .custom(size: 10))
         self.dateLabel.textColor = UIColor.Asset.lightGray
         
-        self.followButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .overline)
+        self.followButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .overline)
         self.followButton.setTitleColor(UIColor.Asset.lightBlue, for: .normal)
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.lineView.custom(color: UIColor.clear, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.lightGray)

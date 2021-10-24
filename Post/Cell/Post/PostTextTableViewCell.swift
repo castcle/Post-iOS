@@ -76,13 +76,13 @@ class PostTextTableViewCell: UITableViewCell {
         self.postView.font = UIFont.asset(.regular, fontSize: .body)
         self.postView.textColor = UIColor.Asset.white
         
-        self.limitLabel.font = UIFont.asset(.medium, fontSize: .small)
+        self.limitLabel.font = UIFont.asset(.bold, fontSize: .small)
         self.limitLabel.textColor = UIColor.Asset.white
         self.limitLabel.text = "\(self.limitCharacter)"
         
         DropDown.appearance().textColor = UIColor.Asset.white
         DropDown.appearance().selectedTextColor = UIColor.Asset.white
-        DropDown.appearance().textFont = UIFont.asset(.medium, fontSize: .overline)
+        DropDown.appearance().textFont = UIFont.asset(.bold, fontSize: .overline)
         DropDown.appearance().backgroundColor = UIColor.Asset.darkGray
         DropDown.appearance().selectionBackgroundColor = UIColor.Asset.darkGray
         DropDown.appearance().cellHeight = 70

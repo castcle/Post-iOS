@@ -26,6 +26,7 @@
 //
 
 import UIKit
+import Core
 import DropDown
 
 class MentionTableViewCell: DropDownCell {

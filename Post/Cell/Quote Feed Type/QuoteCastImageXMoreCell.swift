@@ -41,7 +41,7 @@ class QuoteCastImageXMoreCell: UITableViewCell {
     @IBOutlet var detailLabel: ActiveLabel! {
         didSet {
             self.detailLabel.customize { label in
-                label.font = UIFont.asset(.regular, fontSize: .overline)
+                label.font = UIFont.asset(.contentLight, fontSize: .overline)
                 label.numberOfLines = 0
                 label.enabledTypes = [.mention, .hashtag, .url]
                 label.textColor = UIColor.Asset.white
@@ -66,7 +66,7 @@ class QuoteCastImageXMoreCell: UITableViewCell {
                 self.detailLabel.text = content.contentPayload.message
                 
                 self.moreImageView.image = UIColor.Asset.black.toImage()
-                self.moreLabel.font = UIFont.asset(.medium, fontSize: .custom(size: 45))
+                self.moreLabel.font = UIFont.asset(.bold, fontSize: .custom(size: 45))
                 
                 if content.contentPayload.photo.count > 4 {
                     self.moreImageView.isHidden = false
@@ -119,12 +119,12 @@ class QuoteCastImageXMoreCell: UITableViewCell {
         super.awakeFromNib()
         
         self.avatarImage.circle(color: UIColor.Asset.white)
-        self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
+        self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.dateLabel.font = UIFont.asset(.regular, fontSize: .custom(size: 10))
         self.dateLabel.textColor = UIColor.Asset.lightGray
         
-        self.followButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .overline)
+        self.followButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .overline)
         self.followButton.setTitleColor(UIColor.Asset.lightBlue, for: .normal)
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.lineView.custom(color: UIColor.clear, cornerRadius: 12, borderWidth: 1, borderColor: UIColor.Asset.lightGray)
