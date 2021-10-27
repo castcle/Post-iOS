@@ -56,9 +56,9 @@ class HeaderPostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configCell(page: Page?) {
+    func configCell(page: PageLocal?) {
         guard let page = page else { return }
-        let url = URL(string: page.avatar)
+        let url = URL(string: page.image)
         self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
         self.displayNameLabel.text = page.displayName
         if UserManager.shared.official {
