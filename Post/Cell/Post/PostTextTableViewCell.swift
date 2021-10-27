@@ -172,10 +172,12 @@ extension PostTextTableViewCell: UITextViewDelegate {
             deletate.updateHeightOfRow(self, textView)
         }
         
+        self.updateTextView()
         self.checkCharacterCount()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // MARK: - Hide for beta version
         if text == "@" {
             if !self.isShowDropDown {
                 self.isShowDropDown = true
@@ -271,6 +273,16 @@ extension PostTextTableViewCell {
         
         self.postView.text = changed
         self.updateAttributeText(selectedLocation: range.location+replace.count)
+    }
+    
+    public func updateTextView() {
+        let str = postView.text
+            .styleMentions(mentions)
+            .styleHashtags(hastags)
+            .styleAll(all)
+            .attributedString
+        
+        self.postView.attributedText = str
     }
     
     private func updateAttributeText(selectedLocation: Int) {
