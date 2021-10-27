@@ -112,7 +112,7 @@ class PostViewController: UIViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-        self.hud.textLabel.text = "Loading"
+        self.hud.textLabel.text = "Casting"
         Defaults[.screenId] = ""
     }
     
