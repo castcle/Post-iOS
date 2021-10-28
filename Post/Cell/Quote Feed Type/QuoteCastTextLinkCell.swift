@@ -107,7 +107,7 @@ class QuoteCastTextLinkCell: UITableViewCell {
             self.setData()
         }
         
-        let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar)
+        let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
         let url = URL(string: avatar)
         self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
         self.displayNameLabel.text = content.author.displayName
