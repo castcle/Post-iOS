@@ -64,7 +64,7 @@ class QuoteCastBlogCell: UITableViewCell {
                 self.headerLabel.text = content.contentPayload.header
                 self.detailLabel.text = content.contentPayload.message
                 
-                let imageUrl = URL(string: content.contentPayload.cover.fullHd)
+                let imageUrl = URL(string: content.contentPayload.cover.thumbnail)
                 self.blogImageView.kf.setImage(with: imageUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                 
                 let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
