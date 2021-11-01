@@ -69,8 +69,8 @@ class QuoteCastTextLinkPreviewCell: UITableViewCell {
                 self.detailLabel.text = content.contentPayload.message
                 if let link = content.contentPayload.link.first {
                     self.loadLink(link: link.url)
-                } else if let link = content.contentPayload.message.detectedFirstLink {
-                    self.loadLink(link: link)
+                } else if let link = content.contentPayload.message.extractURLs().first {
+                    self.loadLink(link: link.absoluteString)
                 } else {
                     self.setData()
                 }
