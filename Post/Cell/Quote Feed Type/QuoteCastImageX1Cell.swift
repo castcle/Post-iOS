@@ -60,7 +60,7 @@ class QuoteCastImageX1Cell: UITableViewCell {
                 self.detailLabel.text = content.contentPayload.message
                 
                 if let imageUrl = content.contentPayload.photo.first {
-                    let url = URL(string: imageUrl.thumbnail)
+                    let url = URL(string: imageUrl.large)
                     self.firstImageView.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
                 }
                 

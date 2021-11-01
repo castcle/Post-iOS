@@ -63,19 +63,19 @@ class QuoteCastImageX3Cell: UITableViewCell {
                 self.detailLabel.text = content.contentPayload.message
                 
                 if content.contentPayload.photo.count >= 3 {
-                    let firstUrl = URL(string: content.contentPayload.photo[0].thumbnail)
-                    self.firstImageView.kf.setImage(with: firstUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
+                    let firstUrl = URL(string: content.contentPayload.photo[0].large)
+                    self.firstImageView.kf.setImage(with: firstUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
                     
-                    let secondUrl = URL(string: content.contentPayload.photo[1].thumbnail)
-                    self.secondImageView.kf.setImage(with: secondUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
+                    let secondUrl = URL(string: content.contentPayload.photo[1].large)
+                    self.secondImageView.kf.setImage(with: secondUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
                     
-                    let thirdUrl = URL(string: content.contentPayload.photo[2].thumbnail)
-                    self.thirdImageView.kf.setImage(with: thirdUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
+                    let thirdUrl = URL(string: content.contentPayload.photo[2].large)
+                    self.thirdImageView.kf.setImage(with: thirdUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
                 }
                 
                 let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
                 let url = URL(string: avatar)
-                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
+                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
                 if UserManager.shared.rawCastcleId == content.author.castcleId {
