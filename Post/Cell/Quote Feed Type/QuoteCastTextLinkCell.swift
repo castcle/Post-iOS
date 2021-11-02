@@ -102,8 +102,8 @@ class QuoteCastTextLinkCell: UITableViewCell {
         if let link = content.contentPayload.link.first {
             self.setDataWithContent(icon: link.type.image, message: content.contentPayload.message)
         } else if let link = content.contentPayload.message.extractURLs().first {
-            if link.absoluteString.contains("www.reddit.com") {
-                self.setDataWithContent(icon: UIImage.Asset.reddit, message: content.contentPayload.message)
+            if let icon = UIImage.iconFromUrl(url: link.absoluteString) {
+                self.setDataWithContent(icon: icon, message: content.contentPayload.message)
             } else {
                 self.loadLink(link: link.absoluteString)
             }
@@ -113,7 +113,7 @@ class QuoteCastTextLinkCell: UITableViewCell {
         
         let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
         let url = URL(string: avatar)
-        self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
+        self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
         self.displayNameLabel.text = content.author.displayName
         self.dateLabel.text = content.postDate.timeAgoDisplay()
         if UserManager.shared.rawCastcleId == content.author.castcleId {
@@ -153,7 +153,7 @@ class QuoteCastTextLinkCell: UITableViewCell {
         // MARK: - Image
         if let value = self.result.icon {
             let url = URL(string: value)
-            self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
+            self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
         } else {
             self.linkImage.image = UIImage.Asset.placeholder
         }

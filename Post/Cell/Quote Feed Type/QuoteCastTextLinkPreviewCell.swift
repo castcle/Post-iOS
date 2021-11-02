@@ -77,7 +77,7 @@ class QuoteCastTextLinkPreviewCell: UITableViewCell {
                 
                 let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
                 let url = URL(string: avatar)
-                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
+                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
                 if UserManager.shared.rawCastcleId == content.author.castcleId {
@@ -141,7 +141,7 @@ class QuoteCastTextLinkPreviewCell: UITableViewCell {
         // MARK: - Image
         if let value = self.result.image {
             let url = URL(string: value)
-            self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.5))])
+            self.linkImage.kf.setImage(with: url, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
         } else {
             self.linkImage.image = UIImage.Asset.placeholder
         }
