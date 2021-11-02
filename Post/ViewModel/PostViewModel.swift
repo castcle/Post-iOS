@@ -54,9 +54,9 @@ public final class PostViewModel {
     var imageInsert: [TLPHAsset] = []
     var postType: PostType = .newCast
     var content: Content?
-    var page: PageLocal?
+    var page: Page?
     
-    public init(postType: PostType = .newCast, content: Content? = nil, page: PageLocal = PageLocal().initCustom(displayName: UserManager.shared.displayName, image: UserManager.shared.avatar, castcleId: UserManager.shared.rawCastcleId)) {
+    public init(postType: PostType = .newCast, content: Content? = nil, page: Page = Page().initCustom(displayName: UserManager.shared.displayName, image: UserManager.shared.avatar, castcleId: UserManager.shared.rawCastcleId)) {
         self.postType = postType
         self.content = content
         self.page = page

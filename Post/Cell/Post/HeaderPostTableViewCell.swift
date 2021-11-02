@@ -56,7 +56,7 @@ class HeaderPostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configCell(page: PageLocal?) {
+    func configCell(page: Page?) {
         guard let page = page else { return }
         let url = URL(string: page.image)
         self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
