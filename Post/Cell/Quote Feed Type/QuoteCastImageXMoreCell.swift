@@ -92,9 +92,13 @@ class QuoteCastImageXMoreCell: UITableViewCell {
                     self.fourthImageView.kf.setImage(with: fourthUrl, placeholder: UIImage.Asset.placeholder, options: [.transition(.fade(0.35))])
                 }
                 
-                let avatar = (content.author.castcleId == UserManager.shared.rawCastcleId ?  UserManager.shared.avatar : content.author.avatar.thumbnail)
-                let url = URL(string: avatar)
-                self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
+                if content.author.castcleId == UserManager.shared.rawCastcleId {
+                    self.avatarImage.image = UserManager.shared.avatar
+                } else {
+                    let url = URL(string: content.author.avatar.thumbnail)
+                    self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
+                }
+                
                 self.displayNameLabel.text = content.author.displayName
                 self.dateLabel.text = content.postDate.timeAgoDisplay()
                 if UserManager.shared.rawCastcleId == content.author.castcleId {
