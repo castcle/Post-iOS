@@ -404,6 +404,7 @@ extension PostViewController: PostViewModelDelegate {
     func didCreateContentFinish(success: Bool) {
         self.hud.dismiss()
         if success {
+            NotificationCenter.default.post(name: .getMyContent, object: nil)
             self.dismiss(animated: true, completion: nil)
         }
     }
