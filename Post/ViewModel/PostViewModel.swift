@@ -107,14 +107,7 @@ public final class PostViewModel {
         self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
         self.contentRepository.quotecastContent(contentId: content.id, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
             if success {
-                do {
-                    let rawJson = try response.mapJSON()
-                    let json = JSON(rawJson)
-                    print(json)
-                    self.delegate?.didQuotecastContentFinish(success: success)
-                } catch {
-                    self.delegate?.didQuotecastContentFinish(success: success)
-                }
+                self.delegate?.didQuotecastContentFinish(success: success)
             } else {
                 if isRefreshToken {
                     self.tokenHelper.refreshToken()
