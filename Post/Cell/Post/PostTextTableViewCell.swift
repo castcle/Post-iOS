@@ -178,23 +178,23 @@ extension PostTextTableViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // MARK: - Hide for beta version
-        if text == "@" {
-            if !self.isShowDropDown {
-                self.isShowDropDown = true
-                self.setupMentionDropDown()
-                self.mentionDropDown.show()
-            }
-        } else if text == "#" {
-            if !self.isShowDropDown {
-                self.isShowDropDown = true
-                self.setupHastagDropDown()
-                self.hastagDropDown.show()
-            }
-        } else if text == " " {
-            self.isShowDropDown = false
-            self.mentionDropDown.hide()
-            self.hastagDropDown.hide()
-        }
+//        if text == "@" {
+//            if !self.isShowDropDown {
+//                self.isShowDropDown = true
+//                self.setupMentionDropDown()
+//                self.mentionDropDown.show()
+//            }
+//        } else if text == "#" {
+//            if !self.isShowDropDown {
+//                self.isShowDropDown = true
+//                self.setupHastagDropDown()
+//                self.hastagDropDown.show()
+//            }
+//        } else if text == " " {
+//            self.isShowDropDown = false
+//            self.mentionDropDown.hide()
+//            self.hastagDropDown.hide()
+//        }
         
         return true
     }
