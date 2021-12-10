@@ -22,7 +22,7 @@
 //  PostNibVars.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 15/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 15/8/2564 BE.
 //
 
 public struct PostNibVars {
@@ -45,14 +45,6 @@ public struct PostNibVars {
         public static let header = "HeaderPostTableViewCell"
         public static let newPost = "PostTextTableViewCell"
         public static let imagePost = "ImagePostTableViewCell"
-        public static let quoteText = "QuoteCastTextCell"
-        public static let quoteTextLink = "QuoteCastTextLinkCell"
-        public static let quoteImageX1 = "QuoteCastImageX1Cell"
-        public static let quoteImageX2 = "QuoteCastImageX2Cell"
-        public static let quoteImageX3 = "QuoteCastImageX3Cell"
-        public static let quoteImageXMore = "QuoteCastImageXMoreCell"
-        public static let quoteBlog = "QuoteCastBlogCell"
-        public static let quoteBlogNoImage = "QuoteCastBlogNoImageCell"
         public static let mentionCell = "MentionTableViewCell"
         public static let hashtagCell = "HashtagTableViewCell"
     }

@@ -22,7 +22,7 @@
 //  HeaderPostTableViewCell.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 16/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 16/8/2564 BE.
 //
 
 import UIKit
@@ -43,7 +43,7 @@ class HeaderPostTableViewCell: UITableViewCell {
         
         
         self.avatarImage.circle(color: UIColor.Asset.white)
-        self.displayNameLabel.font = UIFont.asset(.medium, fontSize: .overline)
+        self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
         self.verifyIcon.image = UIImage.init(icon: .castcle(.verify), size: CGSize(width: 15, height: 15), textColor: UIColor.Asset.lightBlue)
         self.statusLabel.font = UIFont.asset(.regular, fontSize: .small)
@@ -58,8 +58,17 @@ class HeaderPostTableViewCell: UITableViewCell {
     
     func configCell(page: Page?) {
         guard let page = page else { return }
-        let url = URL(string: page.avatar)
-        self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
-        self.displayNameLabel.text = page.name
+        if page.castcleId == UserManager.shared.rawCastcleId {
+            self.avatarImage.image = UserManager.shared.avatar
+        } else {
+            self.avatarImage.image = ImageHelper.shared.loadImageFromDocumentDirectory(nameOfImage: page.castcleId, type: .avatar)
+        }
+       
+        self.displayNameLabel.text = page.displayName
+        if UserManager.shared.official {
+            self.verifyIcon.isHidden = false
+        } else {
+            self.verifyIcon.isHidden = true
+        }
     }
 }

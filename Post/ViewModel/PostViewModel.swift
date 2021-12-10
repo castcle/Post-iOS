@@ -22,32 +22,45 @@
 //  PostViewModel.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 16/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 16/8/2564 BE.
 //
 
 import Foundation
 import Core
 import Networking
 import TLPhotoPicker
+import SwiftyJSON
+import Defaults
 
 public enum PostType: String {
     case newCast = "New Cast"
     case quoteCast = "Quote Cast"
 }
 
+public protocol PostViewModelDelegate {
+    func didCreateContentFinish(success: Bool)
+    func didQuotecastContentFinish(success: Bool)
+}
+
 public final class PostViewModel {
     
+    public var delegate: PostViewModelDelegate?
+    private var contentRepository: ContentRepository = ContentRepositoryImpl()
+    var contentRequest: ContentRequest = ContentRequest()
+    let tokenHelper: TokenHelper = TokenHelper()
+    var featureSlug: String = "feed"
     var limitCharacter: Int = 280
     var postText: String = ""
     var imageInsert: [TLPHAsset] = []
     var postType: PostType = .newCast
-    var feed: Feed?
+    var content: Content?
     var page: Page?
     
-    public init(postType: PostType = .newCast, feed: Feed? = nil, page: Page = Page(name: UserState.shared.name, avatar: UserState.shared.avatar)) {
+    public init(postType: PostType = .newCast, content: Content? = nil, page: Page = Page().initCustom(id: UserManager.shared.id, displayName: UserManager.shared.displayName, castcleId: UserManager.shared.rawCastcleId)) {
         self.postType = postType
-        self.feed = feed
+        self.content = content
         self.page = page
+        self.tokenHelper.delegate = self
     }
     
     func isCanPost() -> Bool {
@@ -63,6 +76,55 @@ public final class PostViewModel {
             } else {
                 return false
             }
+        }
+    }
+    
+    func createContent() {
+        self.imageInsert.forEach { asset in
+            if let image = asset.fullResolutionImage {
+                self.contentRequest.payload.image.append(image.resizeImage(targetSize: CGSize.init(width: 1024, height: 1024)).toBase64() ?? "")
+            }
+        }
+        self.contentRequest.payload.message = self.postText
+        self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
+        self.contentRequest.type = .short
+        self.contentRepository.createContent(featureSlug: self.featureSlug, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+            if success {
+                self.delegate?.didCreateContentFinish(success: success)
+            } else {
+                if isRefreshToken {
+                    self.tokenHelper.refreshToken()
+                } else {
+                    self.delegate?.didCreateContentFinish(success: false)
+                }
+            }
+        }
+    }
+    
+    func quotecastContent() {
+        guard let content = self.content else { return }
+        self.contentRequest.message = self.postText
+        self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
+        self.contentRepository.quotecastContent(contentId: content.id, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+            if success {
+                self.delegate?.didQuotecastContentFinish(success: success)
+            } else {
+                if isRefreshToken {
+                    self.tokenHelper.refreshToken()
+                } else {
+                    self.delegate?.didQuotecastContentFinish(success: false)
+                }
+            }
+        }
+    }
+}
+
+extension PostViewModel: TokenHelperDelegate {
+    public func didRefreshTokenFinish() {
+        if self.postType == .newCast {
+            self.createContent()
+        } else if self.postType == .quoteCast {
+            self.quotecastContent()
         }
     }
 }

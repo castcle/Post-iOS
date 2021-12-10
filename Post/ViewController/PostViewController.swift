@@ -22,15 +22,17 @@
 //  PostViewController.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 15/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 15/8/2564 BE.
 //
 
 import UIKit
 import Core
+import Component
 import Networking
 import SwiftColor
 import TLPhotoPicker
 import Defaults
+import JGProgressHUD
 
 class PostViewController: UIViewController {
 
@@ -42,13 +44,14 @@ class PostViewController: UIViewController {
     @IBOutlet var toolbarView: UIView!
     
     var viewModel = PostViewModel()
+    let hud = JGProgressHUD()
     
     private lazy var castKeyboardInput: CastKeyboardInput = {
         let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
         inputView.castButton.setTitle("Cast", for: .normal)
         inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         inputView.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
-        inputView.castButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .body)
+        inputView.castButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .body)
         inputView.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
@@ -62,7 +65,7 @@ class PostViewController: UIViewController {
         inputView.castButton.setTitle("Cast", for: .normal)
         inputView.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         inputView.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
-        inputView.castButton.titleLabel?.font = UIFont.asset(.medium, fontSize: .body)
+        inputView.castButton.titleLabel?.font = UIFont.asset(.bold, fontSize: .body)
         inputView.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
@@ -103,13 +106,14 @@ class PostViewController: UIViewController {
         self.configureTableView()
         self.toolbarView.addSubview(self.toolbarKeyboardInput)
         self.updateCastToolBarButton()
-        
+        self.viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        self.hud.textLabel.text = "Casting"
         Defaults[.screenId] = ""
     }
     
@@ -133,14 +137,15 @@ class PostViewController: UIViewController {
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.header, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.header)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.newPost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.newPost)
         self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.imagePost, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.imagePost)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteText, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteText)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteTextLink, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteTextLink)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX1, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX1)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX2, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX2)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageX3, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageX3)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteImageXMore, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteImageXMore)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteBlog, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteBlog)
-        self.tableView.register(UINib(nibName: PostNibVars.TableViewCell.quoteBlogNoImage, bundle: ConfigBundle.post), forCellReuseIdentifier: PostNibVars.TableViewCell.quoteBlogNoImage)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteText, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteText)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteLink, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteLink)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteLinkPreview, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteLinkPreview)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteImageX1, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteImageX1)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteImageX2, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteImageX2)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteImageX3, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteImageX3)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteImageXMore, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteImageXMore)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteBlog, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteBlog)
+        self.tableView.register(UINib(nibName: ComponentNibVars.TableViewCell.quoteBlogNoImage, bundle: ConfigBundle.component), forCellReuseIdentifier: ComponentNibVars.TableViewCell.quoteBlogNoImage)
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100
@@ -156,7 +161,12 @@ class PostViewController: UIViewController {
     
     @objc func castAction() {
         if self.viewModel.isCanPost() {
-            self.dismiss(animated: true, completion: nil)
+            self.hud.show(in: self.view)
+            if self.viewModel.postType == .newCast {
+                self.viewModel.createContent()
+            } else {
+                self.viewModel.quotecastContent()
+            }
         }
     }
     
@@ -171,7 +181,7 @@ class PostViewController: UIViewController {
         photosPickerViewController.subTitleLabel.font = UIFont.asset(.regular, fontSize: .small)
         
         photosPickerViewController.doneButton.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont.asset(.medium, fontSize: .h4),
+            NSAttributedString.Key.font : UIFont.asset(.bold, fontSize: .h4),
             NSAttributedString.Key.foregroundColor : UIColor.Asset.lightBlue
         ], for: .normal)
         photosPickerViewController.cancelButton.setTitleTextAttributes([
@@ -293,50 +303,8 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.configCell(image: self.viewModel.imageInsert)
             return cell ?? ImagePostTableViewCell()
         case PostViewControllerSection.quote.rawValue:
-            guard let feed = self.viewModel.feed else { return UITableViewCell() }
-            if feed.feedPayload.feedDisplayType == .postText {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteText, for: indexPath as IndexPath) as? QuoteCastTextCell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastTextCell()
-            } else if feed.feedPayload.feedDisplayType == .postLink || feed.feedPayload.feedDisplayType == .postYoutube {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteTextLink, for: indexPath as IndexPath) as? QuoteCastTextLinkCell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastTextLinkCell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX1, for: indexPath as IndexPath) as? QuoteCastImageX1Cell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastImageX1Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX2 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX2, for: indexPath as IndexPath) as? QuoteCastImageX2Cell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastImageX2Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageX3 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageX3, for: indexPath as IndexPath) as? QuoteCastImageX3Cell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastImageX3Cell()
-            } else if feed.feedPayload.feedDisplayType == .postImageXMore {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteImageXMore, for: indexPath as IndexPath) as? QuoteCastImageXMoreCell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastImageXMoreCell()
-            } else if feed.feedPayload.feedDisplayType == .blogImage {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlog, for: indexPath as IndexPath) as? QuoteCastBlogCell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastBlogCell()
-            } else if feed.feedPayload.feedDisplayType == .blogNoImage {
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostNibVars.TableViewCell.quoteBlogNoImage, for: indexPath as IndexPath) as? QuoteCastBlogNoImageCell
-                cell?.backgroundColor = UIColor.clear
-                cell?.feed = feed
-                return cell ?? QuoteCastBlogNoImageCell()
-            } else {
-                return UITableViewCell()
-            }
+            guard let content = self.viewModel.content else { return UITableViewCell() }
+            return FeedCellHelper().renderQuoteCastCell(content: content, tableView: self.tableView, indexPath: indexPath, isRenderForFeed: false)
         default:
             return UITableViewCell()
         }
@@ -383,5 +351,22 @@ extension PostViewController: TLPhotosPickerViewControllerDelegate {
         let index = IndexPath(row: 0, section: 2)
         self.tableView.reloadRows(at: [index], with: .automatic)
         return true
+    }
+}
+
+extension PostViewController: PostViewModelDelegate {
+    func didCreateContentFinish(success: Bool) {
+        self.hud.dismiss()
+        if success {
+            NotificationCenter.default.post(name: .getMyContent, object: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func didQuotecastContentFinish(success: Bool) {
+        self.hud.dismiss()
+        if success {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

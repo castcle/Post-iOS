@@ -22,7 +22,7 @@
 //  PostTextTableViewCell.swift
 //  Post
 //
-//  Created by Tanakorn Phoochaliaw on 16/8/2564 BE.
+//  Created by Castcle Co., Ltd. on 16/8/2564 BE.
 //
 
 import UIKit
@@ -76,13 +76,13 @@ class PostTextTableViewCell: UITableViewCell {
         self.postView.font = UIFont.asset(.regular, fontSize: .body)
         self.postView.textColor = UIColor.Asset.white
         
-        self.limitLabel.font = UIFont.asset(.medium, fontSize: .small)
+        self.limitLabel.font = UIFont.asset(.bold, fontSize: .small)
         self.limitLabel.textColor = UIColor.Asset.white
         self.limitLabel.text = "\(self.limitCharacter)"
         
         DropDown.appearance().textColor = UIColor.Asset.white
         DropDown.appearance().selectedTextColor = UIColor.Asset.white
-        DropDown.appearance().textFont = UIFont.asset(.medium, fontSize: .overline)
+        DropDown.appearance().textFont = UIFont.asset(.bold, fontSize: .overline)
         DropDown.appearance().backgroundColor = UIColor.Asset.darkGray
         DropDown.appearance().selectionBackgroundColor = UIColor.Asset.darkGray
         DropDown.appearance().cellHeight = 70
@@ -107,7 +107,7 @@ class PostTextTableViewCell: UITableViewCell {
             let mention = self.mension[index]
             
             let url = URL(string: mention.avatar)
-            cell.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.5))])
+            cell.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
             cell.idLabel.text = mention.id
         }
         
@@ -172,27 +172,29 @@ extension PostTextTableViewCell: UITextViewDelegate {
             deletate.updateHeightOfRow(self, textView)
         }
         
+        self.updateTextView()
         self.checkCharacterCount()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "@" {
-            if !self.isShowDropDown {
-                self.isShowDropDown = true
-                self.setupMentionDropDown()
-                self.mentionDropDown.show()
-            }
-        } else if text == "#" {
-            if !self.isShowDropDown {
-                self.isShowDropDown = true
-                self.setupHastagDropDown()
-                self.hastagDropDown.show()
-            }
-        } else if text == " " {
-            self.isShowDropDown = false
-            self.mentionDropDown.hide()
-            self.hastagDropDown.hide()
-        }
+        // MARK: - Hide for beta version
+//        if text == "@" {
+//            if !self.isShowDropDown {
+//                self.isShowDropDown = true
+//                self.setupMentionDropDown()
+//                self.mentionDropDown.show()
+//            }
+//        } else if text == "#" {
+//            if !self.isShowDropDown {
+//                self.isShowDropDown = true
+//                self.setupHastagDropDown()
+//                self.hastagDropDown.show()
+//            }
+//        } else if text == " " {
+//            self.isShowDropDown = false
+//            self.mentionDropDown.hide()
+//            self.hastagDropDown.hide()
+//        }
         
         return true
     }
@@ -271,6 +273,16 @@ extension PostTextTableViewCell {
         
         self.postView.text = changed
         self.updateAttributeText(selectedLocation: range.location+replace.count)
+    }
+    
+    public func updateTextView() {
+        let str = postView.text
+            .styleMentions(mentions)
+            .styleHashtags(hastags)
+            .styleAll(all)
+            .attributedString
+        
+        self.postView.attributedText = str
     }
     
     private func updateAttributeText(selectedLocation: Int) {
