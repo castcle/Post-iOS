@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import UIKit
 import Core
 import Networking
 import TLPhotoPicker
