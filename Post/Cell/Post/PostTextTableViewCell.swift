@@ -52,8 +52,8 @@ class PostTextTableViewCell: UITableViewCell {
     let all = Style.font(UIFont.asset(.regular, fontSize: .body)).foregroundColor(UIColor.Asset.white)
     
     private var currentTaggingRange: NSRange?
-    private var hastagRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: "#([^\\s\\K]+)")}
-    private var mentionRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: "@([^\\s\\K]+)")}
+    private var hastagRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: RegexpParser.hashtagPattern)}
+    private var mentionRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: RegexpParser.mentionPattern)}
     
     struct Mension {
         let name: String
