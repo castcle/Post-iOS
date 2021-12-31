@@ -59,7 +59,8 @@ class HeaderPostTableViewCell: UITableViewCell {
     func configCell(page: Page?) {
         guard let page = page else { return }
         if page.castcleId == UserManager.shared.rawCastcleId {
-            self.avatarImage.image = UserManager.shared.avatar
+            let url = URL(string: UserManager.shared.avatar)
+            self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
         } else {
             self.avatarImage.image = ImageHelper.shared.loadImageFromDocumentDirectory(nameOfImage: page.castcleId, type: .avatar)
         }
