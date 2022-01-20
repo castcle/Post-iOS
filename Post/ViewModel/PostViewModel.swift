@@ -106,7 +106,8 @@ public final class PostViewModel {
         guard let content = self.content else { return }
         self.contentRequest.message = self.postText
         self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
-        self.contentRepository.quotecastContent(contentId: content.id, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+        self.contentRequest.contentId = content.id
+        self.contentRepository.quotecastContent(contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
             if success {
                 self.delegate?.didQuotecastContentFinish(success: success)
             } else {
