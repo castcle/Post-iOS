@@ -114,12 +114,17 @@ class PostViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         self.hud.textLabel.text = "Casting"
-        Defaults[.screenId] = ""
+        Defaults[.screenId] = ScreenId.newCast.rawValue
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        EngagementHelper().sendCastcleAnalytic(event: .onScreenView, screen: .newCast)
     }
     
     @objc func keyboardWillAppear() {
