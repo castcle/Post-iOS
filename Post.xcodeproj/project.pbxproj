@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B715A12D27ED816F0011C13C /* PostTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B715A12C27ED816E0011C13C /* PostTextViewModel.swift */; };
 		B78663612747AF4F00B13EEF /* Component.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B78663602747AF4F00B13EEF /* Component.framework */; };
 		B7C2522F26C812A800ACBB84 /* Post.h in Headers */ = {isa = PBXBuildFile; fileRef = B7C2522D26C812A800ACBB84 /* Post.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7C2523E26C818B900ACBB84 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2523D26C818B900ACBB84 /* Core.framework */; };
@@ -38,6 +39,7 @@
 		289D7CBE1FD86DF81CCA5667 /* Pods-Post.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (development).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (development).xcconfig"; sourceTree = "<group>"; };
 		59BD8A1899B67DA3615DAAAD /* Pods-Post.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post.release (production).xcconfig"; path = "Target Support Files/Pods-Post/Pods-Post.release (production).xcconfig"; sourceTree = "<group>"; };
 		6E593F6FC38812E9FBA71D23 /* Pods_Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B715A12C27ED816E0011C13C /* PostTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTextViewModel.swift; sourceTree = "<group>"; };
 		B78663602747AF4F00B13EEF /* Component.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Component.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C2522A26C812A800ACBB84 /* Post.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Post.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C2522D26C812A800ACBB84 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				B7C2526026CA5E7100ACBB84 /* PostViewModel.swift */,
+				B715A12C27ED816E0011C13C /* PostTextViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				B7C2526426CAC1D600ACBB84 /* ImagePostTableViewCell.swift in Sources */,
 				B7C2524326C8402200ACBB84 /* CastKeyboardInput.swift in Sources */,
 				B7C2529B26CE385800ACBB84 /* MentionTableViewCell.swift in Sources */,
+				B715A12D27ED816F0011C13C /* PostTextViewModel.swift in Sources */,
 				B7C2525126C84CAD00ACBB84 /* PostOpener.swift in Sources */,
 				B7C2525E26CA3C4400ACBB84 /* HeaderPostTableViewCell.swift in Sources */,
 				B7C2524F26C84C8500ACBB84 /* PostNibVars.swift in Sources */,

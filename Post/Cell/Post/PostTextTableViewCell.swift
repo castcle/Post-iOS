@@ -27,6 +27,7 @@
 
 import UIKit
 import Core
+import Networking
 import DropDown
 import Atributika
 
@@ -40,12 +41,22 @@ class PostTextTableViewCell: UITableViewCell {
     @IBOutlet var limitLabel: UILabel!
     
     var delegate: PostTextTableViewCellDelegate?
-    
+    private var masterDataRepository: MasterDataRepository = MasterDataRepositoryImpl()
     private var limitCharacter: Int = 280
     let mentionDropDown = DropDown()
     let hastagDropDown = DropDown()
     var isShowDropDown: Bool = false
     var characterCount: Int = 0
+    var mentionText: String = ""
+    var viewModel = PostTextViewModel()
+    let tokenHelper: TokenHelper = TokenHelper()
+    var state: State = .unknow
+    
+    enum State {
+        case getMention
+        case getHastag
+        case unknow
+    }
     
     let hastags = Style.font(UIFont.asset(.regular, fontSize: .body)).foregroundColor(UIColor.Asset.lightBlue)
     let mentions = Style.font(UIFont.asset(.regular, fontSize: .body)).foregroundColor(UIColor.Asset.lightBlue)
@@ -54,21 +65,6 @@ class PostTextTableViewCell: UITableViewCell {
     private var currentTaggingRange: NSRange?
     private var hastagRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: RegexpParser.hashtagPattern)}
     private var mentionRegex: NSRegularExpression! {return try! NSRegularExpression(pattern: RegexpParser.mentionPattern)}
-    
-    struct Mension {
-        let name: String
-        let id: String
-        let avatar: String
-    }
-    
-    private var mension: [Mension] {
-        return [
-            Mension(name: "Manchester United", id: "@ManchesterUnited", avatar: "https://seeklogo.com/images/M/manchester-united-logo-F14DA1FCCD-seeklogo.com.png"),
-            Mension(name: "Manchester City", id: "@ManchesterCity", avatar: "https://upload.wikimedia.org/wikipedia/th/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png"),
-            Mension(name: "Chelsea FC", id: "@Chelsea", avatar: "https://upload.wikimedia.org/wikipedia/th/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"),
-            Mension(name: "Liverpool FC", id: "@Liverpool", avatar: "https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587515361_10542.jpg")
-        ]
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,6 +83,8 @@ class PostTextTableViewCell: UITableViewCell {
         DropDown.appearance().selectionBackgroundColor = UIColor.Asset.darkGray
         DropDown.appearance().cellHeight = 70
         DropDown.appearance().shadowColor = UIColor.clear
+        
+        self.tokenHelper.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -97,14 +95,14 @@ class PostTextTableViewCell: UITableViewCell {
         self.mentionDropDown.anchorView = self.postView
         self.mentionDropDown.bottomOffset = CGPoint(x: 0, y: self.postView.bounds.height)
         
-        let mentionDataSource: [String] = self.mension.map{ $0.name }
+        let mentionDataSource: [String] = self.viewModel.mention.map{ $0.name }
         self.mentionDropDown.dataSource = mentionDataSource
         
         self.mentionDropDown.cellNib = UINib(nibName: PostNibVars.TableViewCell.mentionCell, bundle: ConfigBundle.post)
         
         self.mentionDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
             guard let cell = cell as? MentionTableViewCell else { return }
-            let mention = self.mension[index]
+            let mention = self.viewModel.mention[index]
             
             let url = URL(string: mention.avatar)
             cell.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
@@ -113,8 +111,12 @@ class PostTextTableViewCell: UITableViewCell {
         
         self.mentionDropDown.selectionAction = { [weak self] (index, item) in
             guard let self = self else { return }
-            self.updateTaggedList(allText: self.postView.text, tagText: self.mension[index].id)
+            self.updateTaggedList(allText: self.postView.text, tagText: self.viewModel.mention[index].id)
             self.mentionDropDown.hide()
+            self.isShowDropDown = false
+        }
+        
+        self.mentionDropDown.cancelAction = { [unowned self] in
             self.isShowDropDown = false
         }
     }
@@ -122,25 +124,18 @@ class PostTextTableViewCell: UITableViewCell {
     func setupHastagDropDown() {
         self.hastagDropDown.anchorView = self.postView
         self.hastagDropDown.bottomOffset = CGPoint(x: 0, y: self.postView.bounds.height)
-        
-        let hastagDataSource: [String] = [
-            "#Defi",
-            "#Bitcoin",
-            "#Hitdodgeup",
-            "#Byeelon"
-        ]
-        self.hastagDropDown.dataSource = hastagDataSource
+        self.hastagDropDown.dataSource = self.viewModel.hastagDataSource
         
         self.hastagDropDown.cellNib = UINib(nibName: PostNibVars.TableViewCell.hashtagCell, bundle: ConfigBundle.post)
-
-//        self.hastagDropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
-//           guard let cell = cell as? HashtagTableViewCell else { return }
-//        }
         
         self.hastagDropDown.selectionAction = { [weak self] (index, item) in
             guard let self = self else { return }
             self.updateTaggedList(allText: self.postView.text, tagText: item)
             self.hastagDropDown.hide()
+            self.isShowDropDown = false
+        }
+        
+        self.mentionDropDown.cancelAction = { [unowned self] in
             self.isShowDropDown = false
         }
     }
@@ -177,26 +172,52 @@ extension PostTextTableViewCell: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // MARK: - Hide for beta version
-//        if text == "@" {
-//            if !self.isShowDropDown {
-//                self.isShowDropDown = true
-//                self.setupMentionDropDown()
-//                self.mentionDropDown.show()
-//            }
-//        } else if text == "#" {
-//            if !self.isShowDropDown {
-//                self.isShowDropDown = true
-//                self.setupHastagDropDown()
-//                self.hastagDropDown.show()
-//            }
-//        } else if text == " " {
-//            self.isShowDropDown = false
-//            self.mentionDropDown.hide()
-//            self.hastagDropDown.hide()
-//        }
-        
+        if text == "@" {
+            if !self.isShowDropDown {
+                self.isShowDropDown = true
+                self.getMention()
+            }
+        } else if text == "#" {
+            if !self.isShowDropDown {
+                self.isShowDropDown = true
+                self.getHastag()
+            }
+        } else if text == " " {
+            self.isShowDropDown = false
+            self.mentionDropDown.hide()
+            self.hastagDropDown.hide()
+        }
         return true
+    }
+    
+    private func getMention() {
+        self.state = .getMention
+        self.masterDataRepository.getMentions(keyword: "@") { (success, response, isRefreshToken) in
+            if success {
+                self.viewModel.mappingMention(response: response)
+                self.setupMentionDropDown()
+                self.mentionDropDown.show()
+            } else {
+                if isRefreshToken {
+                    self.tokenHelper.refreshToken()
+                }
+            }
+        }
+    }
+    
+    private func getHastag() {
+        self.state = .getHastag
+        self.masterDataRepository.getHashtag(keyword: "#") { (success, response, isRefreshToken) in
+            if success {
+                self.viewModel.mappingHastag(response: response)
+                self.setupHastagDropDown()
+                self.hastagDropDown.show()
+            } else {
+                if isRefreshToken {
+                    self.tokenHelper.refreshToken()
+                }
+            }
+        }
     }
 }
 
@@ -299,5 +320,15 @@ extension PostTextTableViewCell {
             deletate.updateHeightOfRow(self, self.postView)
         }
         self.postView.selectedRange = NSMakeRange(selectedLocation, 0)
+    }
+}
+
+extension PostTextTableViewCell: TokenHelperDelegate {
+    public func didRefreshTokenFinish() {
+        if self.state == .getMention {
+            self.getMention()
+        } else if self.state == .getHastag {
+            self.getHastag()
+        }
     }
 }
