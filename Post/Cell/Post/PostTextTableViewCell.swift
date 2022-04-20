@@ -50,13 +50,7 @@ class PostTextTableViewCell: UITableViewCell {
     var mentionText: String = ""
     var viewModel = PostTextViewModel()
     let tokenHelper: TokenHelper = TokenHelper()
-    var state: State = .unknow
-    
-    enum State {
-        case getMention
-        case getHastag
-        case unknow
-    }
+    var state: State = .none
     
     let hastags = Style.font(UIFont.asset(.regular, fontSize: .body)).foregroundColor(UIColor.Asset.lightBlue)
     let mentions = Style.font(UIFont.asset(.regular, fontSize: .body)).foregroundColor(UIColor.Asset.lightBlue)

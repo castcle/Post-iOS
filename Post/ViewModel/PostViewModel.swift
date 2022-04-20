@@ -33,11 +33,6 @@ import TLPhotoPicker
 import SwiftyJSON
 import Defaults
 
-public enum PostType: String {
-    case newCast = "New Cast"
-    case quoteCast = "Quote Cast"
-}
-
 public protocol PostViewModelDelegate {
     func didCreateContentFinish(success: Bool)
     func didQuotecastContentFinish(success: Bool)

@@ -25,6 +25,7 @@
 //  Created by Castcle Co., Ltd. on 25/3/2565 BE.
 //
 
+import Core
 import Networking
 import SwiftyJSON
 import Moya
@@ -45,7 +46,7 @@ public final class PostTextViewModel {
             self.mention = []
             let rawJson = try response.mapJSON()
             let json = JSON(rawJson)
-            let payload = json[ContentShelfKey.payload.rawValue].arrayValue
+            let payload = json[JsonKey.payload.rawValue].arrayValue
             payload.forEach { content in
                 let user = UserInfo(json: content)
                 self.mention.append(Mention(name: user.displayName, id: "@\(user.castcleId)", avatar: user.images.avatar.thumbnail))
@@ -58,7 +59,7 @@ public final class PostTextViewModel {
             self.hastagDataSource = []
             let rawJson = try response.mapJSON()
             let json = JSON(rawJson)
-            let payload = json[ContentShelfKey.payload.rawValue].arrayValue
+            let payload = json[JsonKey.payload.rawValue].arrayValue
             payload.forEach { content in
                 let hashtag = Hashtag(json: content)
                 self.hastagDataSource.append("#\(hashtag.name)")
