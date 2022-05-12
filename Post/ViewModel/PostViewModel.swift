@@ -33,13 +33,13 @@ import TLPhotoPicker
 import SwiftyJSON
 import Defaults
 
-public protocol PostViewModelDelegate {
+public protocol PostViewModelDelegate: AnyObject {
     func didCreateContentFinish(success: Bool)
     func didQuotecastContentFinish(success: Bool)
 }
 
 public final class PostViewModel {
-    
+
     public var delegate: PostViewModelDelegate?
     private var contentRepository: ContentRepository = ContentRepositoryImpl()
     var contentRequest: ContentRequest = ContentRequest()
@@ -51,14 +51,14 @@ public final class PostViewModel {
     var postType: PostType = .newCast
     var content: Content?
     var page: Page?
-    
+
     public init(postType: PostType = .newCast, content: Content? = nil, page: Page = Page().initCustom(id: UserManager.shared.id, displayName: UserManager.shared.displayName, castcleId: UserManager.shared.rawCastcleId, avatar: UserManager.shared.avatar, cover: UserManager.shared.cover, overview: UserManager.shared.overview, official: UserManager.shared.official)) {
         self.postType = postType
         self.content = content
         self.page = page
         self.tokenHelper.delegate = self
     }
-    
+
     func isCanPost() -> Bool {
         if !self.postText.isEmpty {
             if self.postText.count <= self.limitCharacter {
@@ -74,7 +74,7 @@ public final class PostViewModel {
             }
         }
     }
-    
+
     func createContent() {
         self.imageInsert.forEach { asset in
             if let image = asset.fullResolutionImage {
@@ -84,7 +84,7 @@ public final class PostViewModel {
         self.contentRequest.payload.message = self.postText
         self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
         self.contentRequest.type = .short
-        self.contentRepository.createContent(featureSlug: self.featureSlug, contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+        self.contentRepository.createContent(featureSlug: self.featureSlug, contentRequest: self.contentRequest) { (success, _, isRefreshToken) in
             if success {
                 self.delegate?.didCreateContentFinish(success: success)
             } else {
@@ -96,13 +96,13 @@ public final class PostViewModel {
             }
         }
     }
-    
+
     func quotecastContent() {
         guard let content = self.content else { return }
         self.contentRequest.message = self.postText
         self.contentRequest.castcleId = self.page?.castcleId ?? UserManager.shared.rawCastcleId
         self.contentRequest.contentId = content.id
-        self.contentRepository.quotecastContent(contentRequest: self.contentRequest) { (success, response, isRefreshToken) in
+        self.contentRepository.quotecastContent(contentRequest: self.contentRequest) { (success, _, isRefreshToken) in
             if success {
                 self.delegate?.didQuotecastContentFinish(success: success)
             } else {

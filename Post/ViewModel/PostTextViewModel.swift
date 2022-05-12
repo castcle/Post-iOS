@@ -37,10 +37,10 @@ public struct Mention {
 }
 
 public final class PostTextViewModel {
-    
+
     var mention: [Mention] = []
     var hastagDataSource: [String] = []
-    
+
     func mappingMention(response: Response) {
         do {
             self.mention = []
@@ -53,7 +53,7 @@ public final class PostTextViewModel {
             }
         } catch {}
     }
-    
+
     func mappingHastag(response: Response) {
         do {
             self.hastagDataSource = []

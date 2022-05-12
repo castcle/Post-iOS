@@ -29,24 +29,24 @@ import UIKit
 import Core
 
 class CastKeyboardInput: UIView {
-    
+
     @IBOutlet var castButton: UIButton!
     @IBOutlet var imageButton: UIButton!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     func commonInit() {
-        let castKeyboardView = ConfigBundle.post.loadNibNamed(PostNibVars.View.cast, owner: self, options: nil)?.first as! UIView
-        castKeyboardView.frame = self.bounds
-        castKeyboardView.backgroundColor = UIColor.Asset.darkGray
-        self.addSubview(castKeyboardView)
+        let castKeyboardView = ConfigBundle.post.loadNibNamed(PostNibVars.View.cast, owner: self, options: nil)?.first as? UIView
+        castKeyboardView?.frame = self.bounds
+        castKeyboardView?.backgroundColor = UIColor.Asset.darkGray
+        self.addSubview(castKeyboardView ?? UIView())
     }
 }

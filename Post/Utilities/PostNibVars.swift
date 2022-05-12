@@ -30,16 +30,16 @@ public struct PostNibVars {
     public struct ViewController {
         public static let post = "PostViewController"
     }
-    
+
     // MARK: - View
     public struct Storyboard {
         public static let post = "Post"
     }
-    
+
     public struct View {
         public static let cast = "CastKeyboardInput"
     }
-    
+
     // MARK: - TableViewCell
     public struct TableViewCell {
         public static let header = "HeaderPostTableViewCell"
@@ -48,7 +48,7 @@ public struct PostNibVars {
         public static let mentionCell = "MentionTableViewCell"
         public static let hashtagCell = "HashtagTableViewCell"
     }
-    
+
     // MARK: - CollectionViewCell
     public struct CollectionViewCell {
     }

@@ -37,9 +37,9 @@ public struct PostOpener {
         switch postScene {
         case .post(let viewModel):
             let storyboard: UIStoryboard = UIStoryboard(name: PostNibVars.Storyboard.post, bundle: ConfigBundle.post)
-            let vc = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post) as? PostViewController
-            vc?.viewModel = viewModel
-            return vc ?? PostViewController()
+            let viewController = storyboard.instantiateViewController(withIdentifier: PostNibVars.ViewController.post) as? PostViewController
+            viewController?.viewModel = viewModel
+            return viewController ?? PostViewController()
         }
     }
 }

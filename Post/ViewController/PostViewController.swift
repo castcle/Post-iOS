@@ -42,10 +42,10 @@ class PostViewController: UIViewController {
     @IBOutlet var blogSwitch: UISwitch!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var toolbarView: UIView!
-    
+
     var viewModel = PostViewModel()
     let hud = JGProgressHUD()
-    
+
     private lazy var castKeyboardInput: CastKeyboardInput = {
         let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
         inputView.castButton.setTitle("Cast", for: .normal)
@@ -56,10 +56,9 @@ class PostViewController: UIViewController {
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
         inputView.imageButton.addTarget(self, action: #selector(self.selectPhotoAction), for: .touchUpInside)
-        
         return inputView
     }()
-    
+
     private lazy var toolbarKeyboardInput: CastKeyboardInput = {
         let inputView = CastKeyboardInput(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 45))
         inputView.castButton.setTitle("Cast", for: .normal)
@@ -70,30 +69,28 @@ class PostViewController: UIViewController {
         inputView.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
         inputView.castButton.addTarget(self, action: #selector(self.castAction), for: .touchUpInside)
         inputView.imageButton.addTarget(self, action: #selector(self.selectPhotoAction), for: .touchUpInside)
-        
         return inputView
     }()
-    
+
     enum PostViewControllerSection: Int, CaseIterable {
         case header = 0
         case newPost
         case image
         case quote
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleLabel.text = self.viewModel.postType.rawValue
         self.view.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.titleView.backgroundColor = UIColor.Asset.darkGraphiteBlue
         self.backButton.setImage(UIImage.init(icon: .castcle(.back), size: CGSize(width: 23, height: 23), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
-        self.titleLabel.font = UIFont.asset(.regular, fontSize: .h4)
+        self.titleLabel.font = UIFont.asset(.regular, fontSize: .head4)
         self.titleLabel.textColor = UIColor.Asset.white
         self.blogSwitch.tintColor = UIColor.Asset.darkGray
         self.blogSwitch.onTintColor = UIColor.Asset.gray
         self.blogSwitch.thumbTintColor = UIColor.Asset.white
         self.blogSwitch.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
-        
         if self.viewModel.postType == .newCast {
             self.castKeyboardInput.imageButton.isHidden = false
             self.toolbarKeyboardInput.imageButton.isHidden = false
@@ -101,13 +98,12 @@ class PostViewController: UIViewController {
             self.castKeyboardInput.imageButton.isHidden = true
             self.toolbarKeyboardInput.imageButton.isHidden = true
         }
-        
         self.configureTableView()
         self.toolbarView.addSubview(self.toolbarKeyboardInput)
         self.updateCastToolBarButton()
         self.viewModel.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -115,17 +111,17 @@ class PostViewController: UIViewController {
         self.hud.textLabel.text = "Casting"
         Defaults[.screenId] = ScreenId.newCast.rawValue
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         EngagementHelper().sendCastcleAnalytic(event: .onScreenView, screen: .newCast)
     }
-    
+
     @objc func keyboardWillAppear() {
         self.toolbarView.isHidden = true
     }
@@ -133,7 +129,7 @@ class PostViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         self.toolbarView.isHidden = false
     }
-    
+
     func configureTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -144,7 +140,7 @@ class PostViewController: UIViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100
     }
-    
+
     @objc func switchValueDidChange(_ sender: UISwitch) {
         if sender.isOn {
             self.blogSwitch.thumbTintColor = UIColor.Asset.lightBlue
@@ -152,7 +148,7 @@ class PostViewController: UIViewController {
             self.blogSwitch.thumbTintColor = UIColor.Asset.white
         }
     }
-    
+
     @objc func castAction() {
         if self.viewModel.isCanPost() {
             self.view.endEditing(true)
@@ -164,7 +160,7 @@ class PostViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func selectPhotoAction() {
         let photosPickerViewController = TLPhotosPickerViewController()
         photosPickerViewController.delegate = self
@@ -174,14 +170,13 @@ class PostViewController: UIViewController {
         photosPickerViewController.navigationBar.isTranslucent = false
         photosPickerViewController.titleLabel.font = UIFont.asset(.regular, fontSize: .overline)
         photosPickerViewController.subTitleLabel.font = UIFont.asset(.regular, fontSize: .small)
-        
         photosPickerViewController.doneButton.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont.asset(.bold, fontSize: .h4),
-            NSAttributedString.Key.foregroundColor : UIColor.Asset.lightBlue
+            NSAttributedString.Key.font: UIFont.asset(.bold, fontSize: .head4),
+            NSAttributedString.Key.foregroundColor: UIColor.Asset.lightBlue
         ], for: .normal)
         photosPickerViewController.cancelButton.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont.asset(.regular, fontSize: .body),
-            NSAttributedString.Key.foregroundColor : UIColor.Asset.lightBlue
+            NSAttributedString.Key.font: UIFont.asset(.regular, fontSize: .body),
+            NSAttributedString.Key.foregroundColor: UIColor.Asset.lightBlue
         ], for: .normal)
 
         var configure = TLPhotosPickerConfigure()
@@ -217,27 +212,25 @@ class PostViewController: UIViewController {
             }
         }
     }
-    
+
     private func disableCaseButtom() {
         self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
         self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
-        
         self.toolbarKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.darkGraphiteBlue.toImage(), for: .normal)
         self.toolbarKeyboardInput.castButton.setTitleColor(UIColor.Asset.gray, for: .normal)
         self.toolbarKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.black)
     }
-    
+
     private func enableCaseButtom() {
         self.castKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
         self.castKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
         self.castKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
-        
         self.toolbarKeyboardInput.castButton.setBackgroundImage(UIColor.Asset.lightBlue.toImage(), for: .normal)
         self.toolbarKeyboardInput.castButton.setTitleColor(UIColor.Asset.white, for: .normal)
         self.toolbarKeyboardInput.castButton.capsule(color: UIColor.clear, borderWidth: 1.0, borderColor: UIColor.Asset.lightBlue)
     }
-    
+
     private func updateImageToolBarButton() {
         if self.viewModel.imageInsert.isEmpty {
             self.disableImageButtom()
@@ -245,19 +238,17 @@ class PostViewController: UIViewController {
             self.enableImageButtom()
         }
     }
-    
+
     private func disableImageButtom() {
         self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
-        
         self.toolbarKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.white).withRenderingMode(.alwaysOriginal), for: .normal)
     }
-    
+
     private func enableImageButtom() {
         self.castKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.lightBlue).withRenderingMode(.alwaysOriginal), for: .normal)
-        
         self.toolbarKeyboardInput.imageButton.setImage(UIImage.init(icon: .castcle(.image), size: CGSize(width: 25, height: 25), textColor: UIColor.Asset.lightBlue).withRenderingMode(.alwaysOriginal), for: .normal)
     }
-    
+
     @IBAction func backAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -267,7 +258,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return PostViewControllerSection.allCases.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case PostViewControllerSection.image.rawValue:
@@ -278,7 +269,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case PostViewControllerSection.header.rawValue:
@@ -320,7 +311,6 @@ extension PostViewController: PostTextTableViewCellDelegate {
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
         }
-        
         self.viewModel.postText = textView.text
         self.updateCastToolBarButton()
     }
@@ -343,7 +333,6 @@ extension PostViewController: TLPhotosPickerViewControllerDelegate {
         self.viewModel.imageInsert = withTLPHAssets
         self.updateImageToolBarButton()
         self.updateCastToolBarButton()
-        
         let index = IndexPath(row: 0, section: 2)
         self.tableView.reloadRows(at: [index], with: .automatic)
         return true
@@ -358,7 +347,7 @@ extension PostViewController: PostViewModelDelegate {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+
     func didQuotecastContentFinish(success: Bool) {
         self.hud.dismiss()
         if success {

@@ -37,11 +37,9 @@ class HeaderPostTableViewCell: UITableViewCell {
     @IBOutlet var statusView: UIView!
     @IBOutlet var globalIcon: UIImageView!
     @IBOutlet var statusLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
         self.avatarImage.circle(color: UIColor.Asset.white)
         self.displayNameLabel.font = UIFont.asset(.bold, fontSize: .overline)
         self.displayNameLabel.textColor = UIColor.Asset.white
@@ -55,7 +53,7 @@ class HeaderPostTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func configCell(page: Page?) {
         guard let page = page else { return }
         if page.castcleId == UserManager.shared.rawCastcleId {
@@ -65,7 +63,7 @@ class HeaderPostTableViewCell: UITableViewCell {
             let url = URL(string: page.avatar)
             self.avatarImage.kf.setImage(with: url, placeholder: UIImage.Asset.userPlaceholder, options: [.transition(.fade(0.35))])
         }
-       
+
         self.displayNameLabel.text = page.displayName
         if UserManager.shared.official {
             self.verifyIcon.isHidden = false

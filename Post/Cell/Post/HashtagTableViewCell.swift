@@ -32,7 +32,7 @@ import DropDown
 class HashtagTableViewCell: DropDownCell {
 
     @IBOutlet var subTitleLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.subTitleLabel.font = UIFont.asset(.regular, fontSize: .small)

@@ -33,7 +33,7 @@ class MentionTableViewCell: DropDownCell {
 
     @IBOutlet var avatarImage: UIImageView!
     @IBOutlet var idLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.avatarImage.circle(color: UIColor.Asset.white)
@@ -44,5 +44,4 @@ class MentionTableViewCell: DropDownCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
 }
